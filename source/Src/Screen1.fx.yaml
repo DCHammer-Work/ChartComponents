@@ -1,0 +1,98 @@
+Screen1 As screen:
+    Height: =Max(App.Height, App.DesignHeight)
+    Orientation: =If(Screen1.Width < Screen1.Height, Layout.Vertical, Layout.Horizontal)
+    Size: =1 + CountRows(App.SizeBreakpoints) - CountIf(App.SizeBreakpoints, Value >= Screen1.Width)
+    Width: =Max(App.Width, App.DesignWidth)
+
+    Chart_2 As Chart:
+        Options: |-
+            =Table(
+                {key:"pie.radius", value:"0,95"},
+            {key:"pie.dataLabels", value:"true"}
+            )
+        Type: =glbType
+        Width: =455
+        X: =40
+        Y: =140
+
+    btnApplyPieType As button:
+        BorderColor: =ColorFade(btnApplyPieType.Fill, -15%)
+        FocusedBorderColor: =btnApplyPieType.BorderColor
+        HoverBorderColor: =ColorFade(btnApplyPieType.BorderColor, 20%)
+        OnSelect: =Set(glbType, "Pie")
+        PressedBorderColor: =btnApplyPieType.Fill
+        PressedColor: =btnApplyPieType.Fill
+        PressedFill: =btnApplyPieType.Color
+        Text: ="Pie"
+        Width: =81
+        X: =40
+        Y: =40
+        ZIndex: =4
+
+    btnApplyFunnelType As button:
+        BorderColor: =ColorFade(btnApplyFunnelType.Fill, -15%)
+        FocusedBorderColor: =btnApplyFunnelType.BorderColor
+        HoverBorderColor: =ColorFade(btnApplyFunnelType.BorderColor, 20%)
+        OnSelect: =Set(glbType, "Funnel")
+        PressedBorderColor: =btnApplyFunnelType.Fill
+        PressedColor: =btnApplyFunnelType.Fill
+        PressedFill: =btnApplyFunnelType.Color
+        Text: ="Funnel"
+        Width: =81
+        X: =144
+        Y: =40
+        ZIndex: =5
+
+    Chart_3 As Chart:
+        Options: |-
+            =Table(
+                { key:"pie.innerRadius", value:"0.8" },
+                { key: "x.labels.fontSize", value: "14" },
+                { key: "y.labels.fontSize", value: "12" }
+            )
+        Type: ="Solid Gauge"
+        Width: =400
+        X: =495
+        Y: =140
+        ZIndex: =6
+
+    Chart_4 As Chart:
+        Data: |-
+            ={
+                legends: ["Test 1", "Test 1"],
+                labels: ["Label 1","Label 2","Label 3","Label 4","Label 5"],
+                table: Table(
+                    {key:"values", values:[90.5, 20, 40, 8, 5]}
+                )
+            }
+        Options: |-
+            =Table(
+                {key:"funnel.orientation", value:"vertical"},
+                {key:"funnel.labels", value:"true"},
+                {key:"funnel.labels.color", value:"#000000"},
+                {key:"funnel.labels.value.color", value:"#000000"},
+                {key:"funnel.labels.percentage.color", value:"#000000"}
+            )
+        Type: ="Funnel"
+        Width: =400
+        X: =951
+        Y: =140
+        ZIndex: =7
+
+    icon1 As icon.NextArrow:
+        DisabledFill: =icon1.Fill
+        FocusedBorderColor: =icon1.BorderColor
+        Height: =50
+        HoverBorderColor: =ColorFade(icon1.BorderColor, 20%)
+        HoverColor: =ColorFade(icon1.Color, 20%)
+        HoverFill: =icon1.Fill
+        Icon: =Icon.NextArrow
+        OnSelect: =Navigate(Screen2, BorderStyle.None)
+        PressedBorderColor: =ColorFade(icon1.BorderColor, -20%)
+        PressedColor: =ColorFade(icon1.Color, -20%)
+        PressedFill: =icon1.Fill
+        Width: =50
+        X: =1280
+        Y: =40
+        ZIndex: =8
+

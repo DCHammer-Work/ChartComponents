@@ -1,0 +1,118 @@
+Screen3 As screen:
+    Height: =Max(App.Height, App.DesignHeight)
+    Orientation: =If(Screen3.Width < Screen3.Height, Layout.Vertical, Layout.Horizontal)
+    Size: =1 + CountRows(App.SizeBreakpoints) - CountIf(App.SizeBreakpoints, Value >= Screen3.Width)
+    Width: =Max(App.Width, App.DesignWidth)
+
+    Chart_7 As Chart:
+        Data: |-
+            ={
+                legends: ["Test 1", "Test 2"],
+                table: Table(
+                    {key:"1.x", values:[28604, 31163, 1516, 13670, 28599, 29476, 31476, 28666, 1777, 29550, 2076, 12087, 24021, 43296, 10088, 19349, 10670, 26424, 37062]},
+                    {key:"1.y", values:[77, 77.4, 68, 74.7, 75, 77.1, 75.4, 78.1, 57.7, 79.1, 67.9, 72, 75.4, 76.8, 70.8, 69.6, 67.3, 75.7, 75.4]},
+                    {key:"1.z", values:[17096869, 27662440, 1154605773, 10582082, 4986705, 56943299, 78958237, 254830, 870601776, 122249285, 20194354, 42972254, 3397534, 4240375, 38195258, 147568552, 53994605, 57110117, 252847810]},
+                    {key:"2.x", values:[44056, 43294, 13334, 21291, 38923, 37599, 44053, 42182, 5903, 36162, 1390, 34644, 34186, 64304, 24787, 23038, 19360, 38225, 53354]},
+                    {key:"2.y", values:[81.8, 81.7, 76.9, 78.5, 80.8, 81.9, 81.1, 82.8, 66.8, 83.5, 71.4, 80.7, 80.6, 81.6, 77.3, 73.13, 76.5, 81.4, 79.1]},
+                    {key:"2.z", values:[23968973, 35939927, 1376048943, 11389562, 5503457, 64395345, 80688545, 329425, 1311050527, 126573481, 25155317, 50293439, 4528526, 5210967, 38611794, 143456918, 78665830, 64715810, 321773631]}
+                )
+            }
+        Legend: |-
+            ={
+                enabled: true,
+                source: "legends",
+                placement: "bottom",
+                width: 100,
+                height: 45,
+                itemGap: 5,
+                fontSize: 14,
+                fontFamily: "",
+                fontWeight: "bold",
+                fontStyle: "normal",
+                color: "#666666",
+                align: "center"
+            }
+        Options: |-
+            =Table(
+                { key:"x.height", value: "30"},
+                { key:"x.labels", value:"true"},
+                { key:"x.labels.rotation", value:"-30"}
+            )
+        Type: ="Scatter"
+        Width: =600
+        X: =50
+        Y: =156
+        ZIndex: =2
+
+    Chart_8 As Chart:
+        Data: |-
+            ={
+                labels: ["2013/1/24", "2013/1/25", "2013/1/28", "2013/1/29", "2013/1/30", "2013/1/31", "2013/2/1", "2013/2/4", "2013/2/5", "2013/2/6", "2013/2/7", "2013/2/8", "2013/2/18", "2013/2/19", "2013/2/20", "2013/2/21", "2013/2/22", "2013/2/25", "2013/2/26", "2013/2/27", "2013/2/28"],
+                table: Table(
+                    {key:"open", values:[2320.26, 2300, 2295.35, 2347.22, 2360.75, 2383.43, 2377.41, 2425.92, 2411, 2432.68, 2430.69, 2416.62, 2441.91, 2420.26, 2383.49, 2378.82, 2322.94, 2320.62, 2313.74, 2297.77, 2322.32]},
+                    {key:"close", values:[2320.26, 2291.3, 2346.5, 2358.98, 2382.48, 2385.42, 2419.02, 2428.15, 2433.13, 2434.48, 2418.53, 2432.4, 2421.56, 2382.91, 2397.18, 2325.95, 2314.16, 2325.82, 2293.34, 2313.22, 2365.59]},
+                    {key:"lowest", values:[2287.3, 2288.26, 2295.35, 2337.35, 2347.89, 2371.23, 2369.57, 2417.58, 2403.3, 2427.7, 2394.22, 2414.4, 2415.43, 2373.53, 2370.61, 2309.17, 2308.76, 2315.01, 2289.89, 2292.03, 2308.92]},
+                    {key:"highest", values:[2362.94, 2308.38, 2346.92, 2363.8, 2383.76, 2391.82, 2421.15, 2440.38, 2437.42, 2441.73, 2433.89, 2443.03, 2444.8, 2427.07, 2397.94, 2378.82, 2330.88, 2338.78, 2340.71, 2324.63, 2366.16]}
+                )
+            }
+        Legend: |-
+            ={
+                enabled: false,
+                source: "legends",
+                placement: "bottom",
+                width: 100,
+                height: 45,
+                itemGap: 5,
+                fontSize: 14,
+                fontFamily: "",
+                fontWeight: "bold",
+                fontStyle: "normal",
+                color: "#666666",
+                align: "center"
+            }
+        Options: |-
+            =Table(
+                { key:"",value:"" },
+                { key:"x.labels.color", value:"#336699" },
+                { key:"y.labels.fontWeight", value:"bold" }
+            )
+        Type: ="Candle"
+        Width: =600
+        X: =708
+        Y: =156
+        ZIndex: =3
+
+    icon1_2 As icon.NextArrow:
+        DisabledFill: =icon1_2.Fill
+        FocusedBorderColor: =icon1_2.BorderColor
+        Height: =50
+        HoverBorderColor: =ColorFade(icon1_2.BorderColor, 20%)
+        HoverColor: =ColorFade(icon1_2.Color, 20%)
+        HoverFill: =icon1_2.Fill
+        Icon: =Icon.NextArrow
+        OnSelect: =Navigate(Screen4, BorderStyle.None)
+        PressedBorderColor: =ColorFade(icon1_2.BorderColor, -20%)
+        PressedColor: =ColorFade(icon1_2.Color, -20%)
+        PressedFill: =icon1_2.Fill
+        Width: =50
+        X: =1280
+        Y: =40
+        ZIndex: =4
+
+    icon2_1 As icon.BackArrow:
+        DisabledFill: =icon2_1.Fill
+        FocusedBorderColor: =icon2_1.BorderColor
+        Height: =50
+        HoverBorderColor: =ColorFade(icon2_1.BorderColor, 20%)
+        HoverColor: =ColorFade(icon2_1.Color, 20%)
+        HoverFill: =icon2_1.Fill
+        Icon: =Icon.BackArrow
+        OnSelect: =Back()
+        PressedBorderColor: =ColorFade(icon2_1.BorderColor, -20%)
+        PressedColor: =ColorFade(icon2_1.Color, -20%)
+        PressedFill: =icon2_1.Fill
+        Width: =50
+        X: =40
+        Y: =40
+        ZIndex: =5
+

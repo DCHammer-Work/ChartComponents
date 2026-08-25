@@ -1,0 +1,135 @@
+Screen2 As screen:
+    Height: =Max(App.Height, App.DesignHeight)
+    Orientation: =If(Screen2.Width < Screen2.Height, Layout.Vertical, Layout.Horizontal)
+    Size: =1 + CountRows(App.SizeBreakpoints) - CountIf(App.SizeBreakpoints, Value >= Screen2.Width)
+    Width: =Max(App.Width, App.DesignWidth)
+
+    Chart_1 As Chart:
+        Data: |-
+            ={
+                legends: ["Test 1", "Test 2", "Test 3"],
+                labels: ["Label 1",  "Label 2",  "Label 3",  "Label 4",  "Label 5",  "Label 6",  "Label 7",  "Label 8"],
+                table: Table(
+                    {key:"1.y", values:[120, 132, 101, 134, 90, 230, 210, 101]},
+                    {key:"2.y", values:[220, 182, 191, 234, 290, 330, 310, 182]},
+                    {key:"3.y", values:[150, 232, 201, 154, 190, 330, 410, 190]}
+                )
+            }
+        Legend: |-
+            ={
+                enabled: true,
+                source: "legends",
+                placement: "bottom",
+                width: 100,
+                height: 45,
+                itemGap: 5,
+                fontSize: 14,
+                fontFamily: "",
+                fontWeight: "bold",
+                fontStyle: "normal",
+                color: "#666666",
+                align: "center"
+            }
+        Type: ="Line"
+        Width: =400
+        X: =28
+        Y: =171
+
+    Chart_5 As Chart:
+        Data: |-
+            ={
+                legends: ["Test 1", "Test 2", "Test 3"],
+                labels: ["Label 1",  "Label 2",  "Label 3",  "Label 4",  "Label 5",  "Label 6",  "Label 7",  "Label 8"],
+                table: Table(
+                    {key:"1.y", values:[120, 132, 101, 134, 90, 230, 210, 101]},
+                    {key:"2.y", values:[220, 182, 191, 234, 290, 330, 310, 182]},
+                    {key:"3.y", values:[150, 232, 201, 154, 190, 330, 410, 190]}
+                )
+            }
+        Legend: |-
+            ={
+                enabled: true,
+                source: "legends",
+                placement: "bottom",
+                width: 100,
+                height: 45,
+                itemGap: 5,
+                fontSize: 14,
+                fontFamily: "",
+                fontWeight: "bold",
+                fontStyle: "normal",
+                color: "#666666",
+                align: "center"
+            }
+        Type: ="Bar"
+        Width: =400
+        X: =472
+        Y: =171
+        ZIndex: =2
+
+    Chart_6 As Chart:
+        Data: |-
+            ={
+                legends: ["Test 1", "Test 2", "Test 3"],
+                labels: ["Label 1",  "Label 2",  "Label 3",  "Label 4",  "Label 5",  "Label 6",  "Label 7",  "Label 8"],
+                table: Table(
+                    {key:"1.y", values:[500, 500, 500, 500, 500, 500, 500, 500]},
+                    {key:"2.y", values:[400, 400, 400, 400, 400, 400, 400, 400]},
+                    {key:"3.y", values:[300, 300, 300, 300, 300, 300, 300, 310]}
+                )
+            }
+        Legend: |-
+            ={
+                enabled: true,
+                source: "legends",
+                placement: "bottom",
+                width: 100,
+                height: 45,
+                itemGap: 5,
+                fontSize: 14,
+                fontFamily: "",
+                fontWeight: "bold",
+                fontStyle: "normal",
+                color: "#666666",
+                align: "center"
+            }
+        Type: ="Radar"
+        Width: =400
+        X: =916
+        Y: =171
+        ZIndex: =3
+
+    icon1_1 As icon.NextArrow:
+        DisabledFill: =icon1_1.Fill
+        FocusedBorderColor: =icon1_1.BorderColor
+        Height: =50
+        HoverBorderColor: =ColorFade(icon1_1.BorderColor, 20%)
+        HoverColor: =ColorFade(icon1_1.Color, 20%)
+        HoverFill: =icon1_1.Fill
+        Icon: =Icon.NextArrow
+        OnSelect: =Navigate(Screen3, BorderStyle.None)
+        PressedBorderColor: =ColorFade(icon1_1.BorderColor, -20%)
+        PressedColor: =ColorFade(icon1_1.Color, -20%)
+        PressedFill: =icon1_1.Fill
+        Width: =50
+        X: =1280
+        Y: =40
+        ZIndex: =4
+
+    icon2_2 As icon.BackArrow:
+        DisabledFill: =icon2_2.Fill
+        FocusedBorderColor: =icon2_2.BorderColor
+        Height: =50
+        HoverBorderColor: =ColorFade(icon2_2.BorderColor, 20%)
+        HoverColor: =ColorFade(icon2_2.Color, 20%)
+        HoverFill: =icon2_2.Fill
+        Icon: =Icon.BackArrow
+        OnSelect: =Back()
+        PressedBorderColor: =ColorFade(icon2_2.BorderColor, -20%)
+        PressedColor: =ColorFade(icon2_2.Color, -20%)
+        PressedFill: =icon2_2.Fill
+        Width: =50
+        X: =40
+        Y: =40
+        ZIndex: =5
+

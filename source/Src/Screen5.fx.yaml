@@ -1,0 +1,8 @@
+Screen5 As screen:
+    Height: =Max(App.Height, App.DesignHeight)
+    Orientation: =If(Screen5.Width < Screen5.Height, Layout.Vertical, Layout.Horizontal)
+    Size: =1 + CountRows(App.SizeBreakpoints) - CountIf(App.SizeBreakpoints, Value >= Screen5.Width)
+    Width: =Max(App.Width, App.DesignWidth)
+
+    Chart_9 As Chart:
+
