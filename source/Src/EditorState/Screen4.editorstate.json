@@ -42,7 +42,8 @@
       "Metadata": {
         "AllowAccessToGlobals": false,
         "AllowCustomization": true,
-        "Description": ""
+        "Description": "",
+        "IsWidget": false
       },
       "MetaDataIDKey": "",
       "Name": "GanttChart_1",
@@ -110,7 +111,7 @@
         {
           "Category": "Design",
           "PropertyName": "ZIndex",
-          "RuleProviderType": "Unknown"
+          "RuleProviderType": "System"
         },
         {
           "Category": "Behavior",
@@ -299,7 +300,7 @@
         {
           "Category": "Design",
           "PropertyName": "BorderThickness",
-          "RuleProviderType": "Unknown"
+          "RuleProviderType": "System"
         },
         {
           "Category": "Design",
@@ -309,7 +310,7 @@
         {
           "Category": "Design",
           "PropertyName": "Rotation",
-          "RuleProviderType": "Unknown"
+          "RuleProviderType": "System"
         },
         {
           "Category": "Behavior",

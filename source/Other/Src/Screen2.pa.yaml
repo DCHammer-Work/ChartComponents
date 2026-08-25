@@ -1,0 +1,249 @@
+# ************************************************************************************************
+# Warning: YAML source code for Canvas Apps should only be used to review changes made within Power Apps Studio and for minor edits (Preview).
+# Use the maker portal to create and edit your Power Apps.
+# 
+# The schema file for Canvas Apps is available at https://go.microsoft.com/fwlink/?linkid=2304907
+# 
+# For more information, visit https://go.microsoft.com/fwlink/?linkid=2292623
+# ************************************************************************************************
+Screens:
+  Screen2:
+    Properties:
+      Fill: =RGBA(255, 255, 255, 1)
+      Height: =Max(App.Height, App.DesignHeight)
+      LoadingSpinnerColor: =RGBA(56, 96, 178, 1)
+      Width: =Max(App.Width, App.DesignWidth)
+    Children:
+      - Chart_1:
+          Control: CanvasComponent
+          ComponentName: Chart
+          Properties:
+            Colors: =["#31825d", "#30a667", "#5ec16c", "#f6c790", "#f7c772", "#f7b45b", "#f68f64", "#d46068", "#946eb0", "#769acc", "#60c5ea"]
+            Data: |-
+              ={
+                  legends: ["Test 1", "Test 2", "Test 3"],
+                  labels: ["Label 1",  "Label 2",  "Label 3",  "Label 4",  "Label 5",  "Label 6",  "Label 7",  "Label 8"],
+                  table: Table(
+                      {key:"1.y", values:[120, 132, 101, 134, 90, 230, 210, 101]},
+                      {key:"2.y", values:[220, 182, 191, 234, 290, 330, 310, 182]},
+                      {key:"3.y", values:[150, 232, 201, 154, 190, 330, 410, 190]}
+                  )
+              }
+            Height: =500
+            Legend: |-
+              ={
+                  enabled: true,
+                  source: "legends",
+                  placement: "bottom",
+                  width: 100,
+                  height: 45,
+                  itemGap: 5,
+                  fontSize: 14,
+                  fontFamily: "",
+                  fontWeight: "bold",
+                  fontStyle: "normal",
+                  color: "#666666",
+                  align: "center"
+              }
+            Options: |-
+              =Table(
+                  {key:"",value:""},{key:"pie.dataLabels", value:"true"}
+              )
+            Subtitle: |-
+              ={
+                  text: "Subtitle",
+                  height: 12,
+                  align: "center",
+                  paddingTop: 12,
+                  fontSize: 12,
+                  fontFamily: "",
+                  fontWeight: "bold",
+                  fontStyle: "normal",
+                  color: "#808080",
+                  additionalStyles: ""
+              }
+            Title: |-
+              ={
+                  text: "Title",
+                  height: 20,
+                  align: "center",
+                  paddingTop: 10,
+                  fontSize: 20,
+                  fontFamily: "",
+                  fontWeight: "bold",
+                  fontStyle: "normal",
+                  color: "#666666",
+                  additionalStyles: ""
+              }
+            Type: ="Line"
+            Width: =400
+            X: =28
+            Y: =171
+      - Chart_5:
+          Control: CanvasComponent
+          ComponentName: Chart
+          Properties:
+            Colors: =["#31825d", "#30a667", "#5ec16c", "#f6c790", "#f7c772", "#f7b45b", "#f68f64", "#d46068", "#946eb0", "#769acc", "#60c5ea"]
+            Data: |-
+              ={
+                  legends: ["Test 1", "Test 2", "Test 3"],
+                  labels: ["Label 1",  "Label 2",  "Label 3",  "Label 4",  "Label 5",  "Label 6",  "Label 7",  "Label 8"],
+                  table: Table(
+                      {key:"1.y", values:[120, 132, 101, 134, 90, 230, 210, 101]},
+                      {key:"2.y", values:[220, 182, 191, 234, 290, 330, 310, 182]},
+                      {key:"3.y", values:[150, 232, 201, 154, 190, 330, 410, 190]}
+                  )
+              }
+            Height: =500
+            Legend: |-
+              ={
+                  enabled: true,
+                  source: "legends",
+                  placement: "bottom",
+                  width: 100,
+                  height: 45,
+                  itemGap: 5,
+                  fontSize: 14,
+                  fontFamily: "",
+                  fontWeight: "bold",
+                  fontStyle: "normal",
+                  color: "#666666",
+                  align: "center"
+              }
+            Options: |-
+              =Table(
+                  {key:"",value:""},{key:"pie.dataLabels", value:"true"}
+              )
+            Subtitle: |-
+              ={
+                  text: "Subtitle",
+                  height: 12,
+                  align: "center",
+                  paddingTop: 12,
+                  fontSize: 12,
+                  fontFamily: "",
+                  fontWeight: "bold",
+                  fontStyle: "normal",
+                  color: "#808080",
+                  additionalStyles: ""
+              }
+            Title: |-
+              ={
+                  text: "Title",
+                  height: 20,
+                  align: "center",
+                  paddingTop: 10,
+                  fontSize: 20,
+                  fontFamily: "",
+                  fontWeight: "bold",
+                  fontStyle: "normal",
+                  color: "#666666",
+                  additionalStyles: ""
+              }
+            Type: ="BarHoriz"
+            Width: =400
+            X: =472
+            Y: =171
+      - Chart_6:
+          Control: CanvasComponent
+          ComponentName: Chart
+          Properties:
+            Colors: =["#31825d", "#30a667", "#5ec16c", "#f6c790", "#f7c772", "#f7b45b", "#f68f64", "#d46068", "#946eb0", "#769acc", "#60c5ea"]
+            Data: |-
+              ={
+                  legends: ["Test 1", "Test 2", "Test 3"],
+                  labels: ["Label 1",  "Label 2",  "Label 3",  "Label 4",  "Label 5",  "Label 6",  "Label 7",  "Label 8"],
+                  table: Table(
+                      {key:"1.y", values:[500, 500, 500, 500, 500, 500, 500, 500]},
+                      {key:"2.y", values:[400, 400, 400, 400, 400, 400, 400, 400]},
+                      {key:"3.y", values:[300, 300, 300, 300, 300, 300, 300, 310]}
+                  )
+              }
+            Height: =500
+            Legend: |-
+              ={
+                  enabled: true,
+                  source: "legends",
+                  placement: "bottom",
+                  width: 100,
+                  height: 45,
+                  itemGap: 5,
+                  fontSize: 14,
+                  fontFamily: "",
+                  fontWeight: "bold",
+                  fontStyle: "normal",
+                  color: "#666666",
+                  align: "center"
+              }
+            Options: |-
+              =Table(
+                  {key:"",value:""},{key:"pie.dataLabels", value:"true"}
+              )
+            Subtitle: |-
+              ={
+                  text: "Subtitle",
+                  height: 12,
+                  align: "center",
+                  paddingTop: 12,
+                  fontSize: 12,
+                  fontFamily: "",
+                  fontWeight: "bold",
+                  fontStyle: "normal",
+                  color: "#808080",
+                  additionalStyles: ""
+              }
+            Title: |-
+              ={
+                  text: "Title",
+                  height: 20,
+                  align: "center",
+                  paddingTop: 10,
+                  fontSize: 20,
+                  fontFamily: "",
+                  fontWeight: "bold",
+                  fontStyle: "normal",
+                  color: "#666666",
+                  additionalStyles: ""
+              }
+            Type: ="Radar"
+            Width: =400
+            X: =916
+            Y: =171
+      - icon1_1:
+          Control: Classic/Icon@2.5.0
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Color: =RGBA(0, 18, 107, 1)
+            DisabledFill: =icon1_1.Fill
+            FocusedBorderColor: =icon1_1.BorderColor
+            Height: =50
+            HoverBorderColor: =ColorFade(icon1_1.BorderColor, 20%)
+            HoverColor: =ColorFade(icon1_1.Color, 20%)
+            HoverFill: =icon1_1.Fill
+            Icon: =Icon.NextArrow
+            OnSelect: =Navigate(Screen3, BorderStyle.None)
+            PressedBorderColor: =ColorFade(icon1_1.BorderColor, -20%)
+            PressedColor: =ColorFade(icon1_1.Color, -20%)
+            PressedFill: =icon1_1.Fill
+            Width: =50
+            X: =1280
+            Y: =40
+      - icon2_2:
+          Control: Classic/Icon@2.5.0
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Color: =RGBA(0, 18, 107, 1)
+            DisabledFill: =icon2_2.Fill
+            FocusedBorderColor: =icon2_2.BorderColor
+            Height: =50
+            HoverBorderColor: =ColorFade(icon2_2.BorderColor, 20%)
+            HoverColor: =ColorFade(icon2_2.Color, 20%)
+            HoverFill: =icon2_2.Fill
+            Icon: =Icon.BackArrow
+            OnSelect: =Back()
+            PressedBorderColor: =ColorFade(icon2_2.BorderColor, -20%)
+            PressedColor: =ColorFade(icon2_2.Color, -20%)
+            PressedFill: =icon2_2.Fill
+            Width: =50
+            X: =40
+            Y: =40

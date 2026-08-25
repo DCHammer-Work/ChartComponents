@@ -580,7 +580,8 @@
       "Metadata": {
         "AllowAccessToGlobals": false,
         "AllowCustomization": true,
-        "Description": ""
+        "Description": "",
+        "IsWidget": false
       },
       "MetaDataIDKey": "",
       "Name": "Chart_2",
@@ -634,12 +635,12 @@
         {
           "Category": "Design",
           "PropertyName": "Height",
-          "RuleProviderType": "Unknown"
+          "RuleProviderType": "System"
         },
         {
           "Category": "Design",
           "PropertyName": "ZIndex",
-          "RuleProviderType": "Unknown"
+          "RuleProviderType": "System"
         },
         {
           "Category": "Design",
@@ -729,7 +730,8 @@
       "Metadata": {
         "AllowAccessToGlobals": false,
         "AllowCustomization": true,
-        "Description": ""
+        "Description": "",
+        "IsWidget": false
       },
       "MetaDataIDKey": "",
       "Name": "Chart_3",
@@ -782,7 +784,7 @@
         {
           "Category": "Design",
           "PropertyName": "Height",
-          "RuleProviderType": "Unknown"
+          "RuleProviderType": "System"
         },
         {
           "Category": "Design",
@@ -884,7 +886,8 @@
       "Metadata": {
         "AllowAccessToGlobals": false,
         "AllowCustomization": true,
-        "Description": ""
+        "Description": "",
+        "IsWidget": false
       },
       "MetaDataIDKey": "",
       "Name": "Chart_4",
@@ -939,7 +942,7 @@
         {
           "Category": "Design",
           "PropertyName": "Height",
-          "RuleProviderType": "Unknown"
+          "RuleProviderType": "System"
         },
         {
           "Category": "Design",
@@ -1155,7 +1158,7 @@
         {
           "Category": "Design",
           "PropertyName": "BorderThickness",
-          "RuleProviderType": "Unknown"
+          "RuleProviderType": "System"
         },
         {
           "Category": "Design",
@@ -1165,7 +1168,7 @@
         {
           "Category": "Design",
           "PropertyName": "Rotation",
-          "RuleProviderType": "Unknown"
+          "RuleProviderType": "System"
         },
         {
           "Category": "Behavior",

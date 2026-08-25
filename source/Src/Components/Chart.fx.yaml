@@ -57,7 +57,7 @@ Chart As CanvasComponent:
             color: "#666666",
             additionalStyles: ""
         }
-    Type: ="Pie"
+    Type: ="BarHoriz"
     Width: =500
     X: =0
     Y: =0
@@ -1818,4 +1818,554 @@ Chart As CanvasComponent:
         PressedFill: =ColorFade(Header.Fill, -20%)
         Width: =Parent.Width
         ZIndex: =11
+
+    BarNew As image:
+        Height: =PlotArea.Height
+        HoverBorderColor: =ColorFade(Self.BorderColor, 20%)
+        HoverFill: =ColorFade(Self.Fill, 20%)
+        Image: |-
+            =If(Chart.Type = "BarNew", Concat(
+                Table({
+                    width: PlotArea.Width,
+                    height: PlotArea.Height,
+                    colors:RenameColumns(Chart.Colors,Value,color),
+                    indexes: ForAll(
+                        ForAll(Split(
+                            Concat(
+                                Table({ 
+                                    indexes: ForAll(
+                                        ForAll(Split(Coalesce(LookUp(Parent.Options, key="indexes").value, "1,2,3,4,5,6,7,8,9,10"), ","), {Result: ThisRecord.Value}),
+                                        Value(Result)
+                                    )
+                                }),
+                                Concat(
+                                    RenameColumns(indexes, Value,baseIndex), 
+                                    Concat(indexes, Text((baseIndex - 1) * CountRows(indexes) + Value), ","),
+                                    ","
+                                )
+                            ), ","), {Result: ThisRecord.Value}),
+                        { index: Value(Result) }
+                    ) //1, 2, 3, 4, ..., 99, 100
+                }), 
+                 Substitute(Substitute(Substitute(Substitute(Substitute(Substitute(
+                    Concatenate(
+                        "data:image/svg+xml;charset=utf8,", 
+                        "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 " & Text(width, "#0.000", "en-us") & " " & Text(height, "#0.000", "en-us") & "'>",
+                            Concat(Table({
+                                xAxis:{
+                                    enabled: LookUp(Chart.Options, key="x").value <> "false",
+                                    title: LookUp(Chart.Options, key="x.title").value,
+                                    titleStyle: {
+                                        y:Round(Value(Coalesce(LookUp(Chart.Options, key = "x.title.y").value,"-10")),3),
+                                        align:If(LookUp(Chart.Options, key="x.title.align").value = "left","left","right"),
+                                        fontSize: Round(Value(Coalesce(LookUp(Chart.Options, key = "x.title.fontSize").value,"14")),3),
+                                        fontFamily: LookUp(Chart.Options, key = "x.title.fontFamily").value,
+                                        fontWeight: Coalesce(LookUp(Chart.Options, key="x.title.fontWeight").value,"bold"),
+                                        fontStyle: Coalesce(LookUp(Chart.Options, key="x.title.fontStyle").value,"normal"),
+                                        color: Coalesce(LookUp(Chart.Options, key="x.title.color").value,"#333333"),
+                                        additionalStyles: LookUp(Chart.Options, key="x.title.additionalStyles").value
+                                    },
+                                    style: {
+                                        height: Round(Value(Coalesce(LookUp(Chart.Options, key = "x.height").value,"20")),3),
+                                        lineWidth: Round(Value(Coalesce(LookUp(Chart.Options, key = "x.lineWidth").value,"1")),3),
+                                        lineColor: Coalesce(LookUp(Chart.Options, key = "x.lineColor").value,"#333333"),
+                                        tickLength: Round(Value(Coalesce(LookUp(Chart.Options, key = "x.tickLength").value,"5")),3),
+                                        tickWidth: Round(Value(Coalesce(LookUp(Chart.Options, key = "x.tickWidth").value,"1")),3)
+                                    },
+                                    labels: {
+                                        enabled: LookUp(Chart.Options, key="x.labels").value <> "false",
+                                        format: LookUp(Chart.Options, key = "x.labels.format").value,
+                                        rotation: Round(Value(LookUp(Chart.Options, key = "x.labels.rotation").value),3),
+                                        fontSize: Round(Value(Coalesce(LookUp(Chart.Options, key = "x.labels.fontSize").value,"12")),3),
+                                        fontFamily: LookUp(Chart.Options, key = "x.labels.fontFamily").value,
+                                        fontWeight: Coalesce(LookUp(Chart.Options, key="x.labels.fontWeight").value,"bold"),
+                                        fontStyle: Coalesce(LookUp(Chart.Options, key="x.labels.fontStyle").value,"normal"),
+                                        color: Coalesce(LookUp(Chart.Options, key="x.labels.color").value,"#333333"),
+                                        additionalStyles: LookUp(Chart.Options, key="x.labels.additionalStyles").value
+                                    }
+                                },
+                                yAxis:{
+                                    enabled: LookUp(Chart.Options, key="y").value <> "false",
+                                    title: LookUp(Chart.Options, key="y.title").value,
+                                    titleStyle: {
+                                        align:If(LookUp(Chart.Options, key="y.title.align").value = "left","left","right"),
+                                        fontSize: Round(Value(Coalesce(LookUp(Chart.Options, key = "y.title.fontSize").value,"14")),3),
+                                        fontFamily: LookUp(Chart.Options, key = "y.title.fontFamily").value,
+                                        fontWeight: Coalesce(LookUp(Chart.Options, key="y.title.fontWeight").value,"bold"),
+                                        fontStyle: Coalesce(LookUp(Chart.Options, key="y.title.fontStyle").value,"normal"),
+                                        color: Coalesce(LookUp(Chart.Options, key="y.title.color").value,"#333333"),
+                                        additionalStyles: LookUp(Chart.Options, key="y.title.additionalStyles").value
+                                    },
+                                    align:Coalesce(LookUp(Chart.Options, key="y.align").value,"left"),
+                                    step:Round(Value(LookUp(Chart.Options, key = "y.step").value),3),
+                                    min:Round(Value(LookUp(Chart.Options, key = "y.min").value),3),
+                                    max:Round(Value(LookUp(Chart.Options, key = "y.max").value),3),
+                                    style: {
+                                        width: Round(Value(Coalesce(LookUp(Chart.Options, key = "y.width").value,"50")),3),
+                                        lineWidth: Round(Value(Coalesce(LookUp(Chart.Options, key = "y.lineWidth").value,"1")),3),
+                                        lineColor: Coalesce(LookUp(Chart.Options, key = "y.lineColor").value,"#333333"),
+                                        tickLength: Round(Value(Coalesce(LookUp(Chart.Options, key = "y.tickLength").value,"5")),3),
+                                        tickWidth: Round(Value(Coalesce(LookUp(Chart.Options, key = "y.tickWidth").value,"1")),3),
+                                        padTop:Round(Value(Coalesce(LookUp(Chart.Options, key = "y.padTop").value,"20")),3)
+                                    },
+                                    labels: {
+                                        enabled: LookUp(Chart.Options, key="y.labels").value <> "false",
+                                        format: Coalesce(LookUp(Chart.Options, key = "y.labels.format").value,"0"),
+                                        fontSize: Round(Value(Coalesce(LookUp(Chart.Options, key = "y.labels.fontSize").value,"12")),3),
+                                        fontFamily: LookUp(Chart.Options, key = "y.labels.fontFamily").value,
+                                        fontWeight: Coalesce(LookUp(Chart.Options, key="y.labels.fontWeight").value,"bold"),
+                                        fontStyle: Coalesce(LookUp(Chart.Options, key="y.labels.fontStyle").value,"normal"),
+                                        color: Coalesce(LookUp(Chart.Options, key="y.labels.color").value,"#333333"),
+                                        additionalStyles: LookUp(Chart.Options, key="y.labels.additionalStyles").value
+                                    }
+                                },
+                                stacked: LookUp(Chart.Options, key="bar.stacked").value = "true",
+                                style:{
+                                    itemGap:Round(Value(Coalesce(LookUp(Chart.Options, key = "bar.itemGap").value,"5")),3),
+                                    fillOpacity:Round(Value(Coalesce(LookUp(Chart.Options, key = "bar.fillOpacity").value,"1")),3),
+                                    borderWidth:Round(Value(LookUp(Chart.Options, key = "bar.borderWidth").value),3),
+                                    borderColor:LookUp(Chart.Options, key = "bar.borderColor").value
+                                },
+                                labels:Chart.Data.labels,
+                                legends:If(Chart.Legend.source = "labels", Chart.Data.labels, Chart.Data.legends)
+                            }),
+                                Concat(Table({
+                                    data:ForAll(FirstN(indexes,CountRows(legends)),{
+                                        index:index,
+                                        color:Last(FirstN(colors,index)).color,
+                                        values:ForAll(LookUp(Chart.Data.table, key=index & ".y").values,{Value:Round(Value(Value),3)})
+                                    }),
+                                    plot:{
+                                        x:If(yAxis.enabled && yAxis.align = "left",yAxis.style.width,0),
+                                        y:If(yAxis.enabled, yAxis.style.padTop, 0),
+                                        width:If(yAxis.enabled, Round(width - yAxis.style.width,3), width),
+                                        height:Round(height - If(xAxis.enabled,xAxis.style.height,0) - If(yAxis.enabled,yAxis.style.padTop,0),3)
+                                    },
+                                    xSpaces:CountRows(labels) + 1,
+                                    seriesCount:If(stacked,1,CountRows(legends))
+                                }),
+                                    Concat(AddColumns(Table({
+                                        barWidth:Round(Min(plot.width / xSpaces / seriesCount - style.itemGap,plot.width / xSpaces / seriesCount),3),
+                                        xSpaceWidth:Round((plot.width / xSpaces),3),
+                                        //PR: allows single-label / multi-legend charts
+                                        //to render as evenly spaced coloured bars.
+                                        //used when legends are being treated as categories
+                                        legendAsCategoryMode: CountRows(labels) = 1 && CountRows(legends) > 1,
+                                        labels:ForAll(FirstN(indexes,CountRows(labels)),{
+                                            x:Round(index * (plot.width / xSpaces),3),
+                                            labelText:Last(FirstN(labels,index)).Value
+                                        }),
+                                        data:ForAll(data,{
+                                            id:index,
+                                            color:color,
+                                            values:ForAll(FirstN(indexes,CountRows(labels)),{
+                                                index:index,
+                                                value:If(CountRows(values) < index, 0, Last(FirstN(values,index)).Value)
+                                            })
+                                        }),
+                                        min:If(yAxis.max <> yAxis.min,yAxis.min,stacked,0,RoundDown(Min(data,Min(values,Value)) - Max((Max(data,Max(values,Value)) - Min(data,Min(values,Value))) / 10,10),0)),
+                                        max:If(yAxis.max <> yAxis.min,yAxis.max,stacked,Max(ForAll(RenameColumns(FirstN(indexes,CountRows(labels)),index,i),{Value:Sum(data, Last(FirstN(values,i)).Value)}),Value),RoundUp(Max(data,Max(values,Value)),0)),
+                                        tickX:Round(If(yAxis.align = "left", -yAxis.style.tickLength, yAxis.style.tickLength),3),
+                                        labelX:Round(If(yAxis.align = "left",-yAxis.style.tickLength-5,yAxis.style.tickLength + 5),3),
+                                        labelAnchor:If(yAxis.align = "left","end","start")
+                                    }),step,If(yAxis.step = 0,RoundUp((max - min) / 5,0),yAxis.step)),
+                                    //X Axis
+                                    "<style>" &
+                                        ".x-labels{fill:"& xAxis.labels.color &";font-size:" & xAxis.labels.fontSize & "px;font-family:'" & xAxis.labels.fontFamily & "';font-weight:" & xAxis.labels.fontWeight & ";font-style:" & xAxis.labels.fontStyle & ";" & xAxis.labels.additionalStyles & "}"&
+                                        ".y-labels{fill:"& yAxis.labels.color &";font-size:" & yAxis.labels.fontSize & "px;font-family:'" & yAxis.labels.fontFamily & "';font-weight:" & yAxis.labels.fontWeight & ";font-style:" & yAxis.labels.fontStyle & ";" & yAxis.labels.additionalStyles & "}"&
+                                    "</style>" &
+                                    If(xAxis.enabled,"<g class='x-axis' transform='translate(" & Text(plot.x, "#0.000", "en-us") & "," & Text(Round(plot.y + plot.height,3), "#0.000", "en-us") & ")'>" &
+                                        "<path d='M0,0H" & Text(Round(plot.x + plot.width,3), "#0.000", "en-us") & "'  "&
+                                            "fill='none' " & 
+                                            "stroke-width='" & Text(xAxis.style.lineWidth, "#0.000", "en-us") & "' " &
+                                            "stroke='" & xAxis.style.lineColor & "'/>" &
+                                        If(!IsBlank(xAxis.title), "<text dy='0.35em' " &
+                                            "text-anchor='" & If(xAxis.titleStyle.align = "left","start","end") & "' " &
+                                            "x='" & Text(If(xAxis.titleStyle.align="left",10,Round(width - yAxis.style.width - 10,3)), "#0.000", "en-us") & "' " &
+                                            "y='" & Text(xAxis.titleStyle.y, "#0.000", "en-us") & "' " &
+                                            "style='" &
+                                                "fill:" & xAxis.titleStyle.color & ";" &
+                                                "font-size:" & xAxis.titleStyle.fontSize & "px;" &
+                                                "font-family:" & xAxis.titleStyle.fontFamily & ";" &
+                                                "font-weight:" & xAxis.titleStyle.fontWeight & ";" &
+                                                "font-style:" & xAxis.titleStyle.fontStyle & ";" & xAxis.titleStyle.additionalStyles & "'>" &
+                                            xAxis.title &
+                                        "</text>") &
+                                        "<g>" &
+                                            Concat(labels,
+                                            "<g transform='translate(" & Text(x, "#0.000", "en-us") & ",0)'>" &
+                                                "<path d='M0,0V" & Text(xAxis.style.tickLength, "#0.000", "en-us") & "' stroke-width='" & Text(xAxis.style.tickWidth, "#0.000", "en-us") & "' stroke='" & xAxis.style.lineColor & "'/>" &
+                                                If(xAxis.labels.enabled, "<text transform='rotate(" & Text(xAxis.labels.rotation, "#0.000", "en-us") & ",0,5)' class='x-labels' dy='1em' y='5' text-anchor='"& If(xAxis.labels.rotation > 0,"start",xAxis.labels.rotation < 0,"end", "middle") & "' x='0'>" &
+                                                    labelText &
+                                                "</text>") &
+                                            "</g>") &
+                                        "</g>" &
+                                    "</g>") &
+                                    //Y Axis
+                                    If(yAxis.enabled,"<g class='y-axis' transform='translate(" & Text(If(yAxis.align = "left",0,Round(width - yAxis.style.width,3)), "#0.000", "en-us") & ",0)'>" &
+                                        If(!IsBlank(yAxis.title), "<text dy='.5em' " &
+                                            "text-anchor='" & If(yAxis.titleStyle.align = "left","end","start") & "' " &
+                                            "x='" & Text(Round(If(yAxis.align="left",yAxis.style.width,0) + If(yAxis.titleStyle.align = "left",-10,10),3), "#0.000", "en-us") & "' " &
+                                            "y='0' " &
+                                            "style='" &
+                                                "fill:" & yAxis.titleStyle.color & ";" &
+                                                "font-size:" & yAxis.titleStyle.fontSize & "px;" &
+                                                "font-family:" & yAxis.titleStyle.fontFamily & ";" &
+                                                "font-weight:" & yAxis.titleStyle.fontWeight & ";" &
+                                                "font-style:" & yAxis.titleStyle.fontStyle & ";" & yAxis.titleStyle.additionalStyles & "'>" &
+                                            yAxis.title &
+                                        "</text>") &
+                                        "<path transform='translate(" & Text(Round(If(yAxis.align = "left", yAxis.style.width, 0),3), "#0.000", "en-us") & ",0)' d='M0,0L3,10L-3,10L0,0V" & Text(Round(plot.y + plot.height,3), "#0.000", "en-us") & "'  "&
+                                            "fill='" & yAxis.style.lineColor & "' " & 
+                                            "stroke-width='" & Text(yAxis.style.lineWidth, "#0.000", "en-us") & "' " &
+                                            "stroke='" & yAxis.style.lineColor & "'/>" &
+                                        "<g>" &
+                                            "<g transform='translate(" & Text(If(yAxis.align = "left", yAxis.style.width, 0), "#0.000", "en-us") & "," & Text(Round(plot.y + plot.height,3), "#0.000", "en-us") & ")'>" &
+                                                "<path d='M0,0H" & Text(tickX, "#0.000", "en-us") & "' stroke-width='" & Text(yAxis.style.tickWidth, "#0.000", "en-us") & "' stroke='" & yAxis.style.lineColor & "'/>" &
+                                                If(yAxis.labels.enabled,
+                                                "<text class='y-labels' dy='.5em' y='-5' text-anchor='"& labelAnchor & "' x='"& Text(labelX, "#0.000", "en-us") & "'>" &
+                                                    Text(min, yAxis.labels.format) &
+                                                "</text>") &
+                                            "</g>" &
+                                            Concat(ForAll(Filter(indexes, index <= RoundUp((max - min) / step,0)),{
+                                                y:Round(plot.y + (plot.height) * (1 - step * index / (max - min)),3),
+                                                label:Text(min + index * step, yAxis.labels.format)
+                                            }),
+                                            "<g transform='translate(" & Text(If(yAxis.align = "left", yAxis.style.width, 0), "#0.000", "en-us") & "," & Text(y, "#0.000", "en-us") & ")'>" &
+                                                "<path d='M0,0H" & Text(tickX, "#0.000", "en-us") & "' stroke-width='" & Text(yAxis.style.tickWidth, "#0.000", "en-us") & "' stroke='" & yAxis.style.lineColor & "'/>" &
+                                                If(yAxis.labels.enabled,
+                                                "<text class='y-labels' dy='.5em' y='-5' text-anchor='"& labelAnchor & "' x='"& Text(labelX, "#0.000", "en-us") & "'>" &
+                                                    label &
+                                                "</text>") &
+                                            "</g>") &
+                                        "</g>" &
+                                    "</g>") &
+                                    "<g transform='translate("&Text(plot.x, "#0.000", "en-us")&","&Text(Round(plot.y+plot.height,3), "#0.000", "en-us")&")'>" &
+                                        Concat(Sort(ForAll(data,{
+                                            id:id,
+                                            color:color,
+                                            borderColor:Coalesce(style.borderColor,color),
+                                            points:AddColumns(values,
+                                                x,Round(index * xSpaceWidth,3),
+                                                y,Round(plot.height * (value - min) / (min - max),3),
+                                                baseY,If(stacked,Round(plot.height * (Sum(Filter(RenameColumns(data,id,tempId), tempId < id),Last(FirstN(values,index)).value)) / (min-max),3),0),
+                                                offsetX,
+                                                If(
+                                                    legendAsCategoryMode,
+                                                    Round(
+                                                        ((plot.width - barWidth) / CountRows(legends)) * (id - 1), 3
+                                                        ),
+                                                        If(
+                                                            !stacked,
+                                                            Round((barWidth + style.itemGap) * (id - 1),3)
+                                                        )
+                                                    ) - (xSpaceWidth / 2) + (barWidth / 2)
+                                                    )
+                                        }),id,SortOrder.Descending),
+                                            "<g class='bar' transform='translate(" & Text(Round(-(xSpaceWidth - style.itemGap) / 2,3), "#0.000", "en-us") & ",0)' " &
+                                                    "fill='" & color & "' " & 
+                                                    "fill-opacity='" & style.fillOpacity & "'>" &
+                                                Concat(points,
+                                                    "<path d='M"& Text(x + offsetX, "#0.000", "en-us") &","& Text(baseY, "#0.000", "en-us") &
+                                                        "V"& Text(baseY + y, "#0.000", "en-us") &
+                                                        "H"& Text(x + offsetX + barWidth, "#0.000", "en-us") &
+                                                        "V"& Text(baseY, "#0.000", "en-us") &"' " & 
+                                                    "stroke='" & borderColor & "' " & 
+                                                    "stroke-width='" & Text(style.borderWidth, "#0.000", "en-us") & "'/>") &
+                                            "</g>"
+                                        ) &
+                                    "</g>"
+                                    )
+                                )
+                            ),
+                        "</svg>"
+                    ),
+                    "%", "%25"), "<", "%3C"), ">", "%3E"), "#", "%23"), "{", "%7B"), "}", "%7D")
+            ))
+        PressedBorderColor: =ColorFade(Self.BorderColor, -20%)
+        PressedFill: =ColorFade(Self.Fill, -20%)
+        Width: =PlotArea.Width
+        X: =PlotArea.X
+        Y: =PlotArea.Y
+        ZIndex: =12
+
+    BarHoriz As image:
+        Height: =PlotArea.Height
+        HoverBorderColor: =ColorFade(Self.BorderColor, 20%)
+        HoverFill: =ColorFade(Self.Fill, 20%)
+        Image: |-
+            =If(Chart.Type = "BarHoriz", Concat(
+                Table({
+                    width: PlotArea.Width,
+                    height: PlotArea.Height,
+                    colors:RenameColumns(Chart.Colors,Value,color),
+                    indexes: ForAll(
+                        ForAll(Split(
+                            Concat(
+                                Table({ 
+                                    indexes: ForAll(
+                                        ForAll(Split(Coalesce(LookUp(Parent.Options, key="indexes").value, "1,2,3,4,5,6,7,8,9,10"), ","), {Result: ThisRecord.Value}),
+                                        Value(Result)
+                                    )
+                                }),
+                                Concat(
+                                    RenameColumns(indexes, Value,baseIndex), 
+                                    Concat(indexes, Text((baseIndex - 1) * CountRows(indexes) + Value), ","),
+                                    ","
+                                )
+                            ), ","), {Result: ThisRecord.Value}),
+                        { index: Value(Result) }
+                    ) //1, 2, 3, 4, ..., 99, 100
+                }), 
+                 Substitute(Substitute(Substitute(Substitute(Substitute(Substitute(
+                    Concatenate(
+                        "data:image/svg+xml;charset=utf8,", 
+                        "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 " & Text(width, "#0.000", "en-us") & " " & Text(height, "#0.000", "en-us") & "'>",
+                            Concat(Table({
+                                xAxis:{
+                                    enabled: LookUp(Chart.Options, key="x").value <> "false",
+                                    title: LookUp(Chart.Options, key="x.title").value,
+                                    titleStyle: {
+                                        y:Round(Value(Coalesce(LookUp(Chart.Options, key = "x.title.y").value,"-10")),3),
+                                        align:If(LookUp(Chart.Options, key="x.title.align").value = "left","left","right"),
+                                        fontSize: Round(Value(Coalesce(LookUp(Chart.Options, key = "x.title.fontSize").value,"14")),3),
+                                        fontFamily: LookUp(Chart.Options, key = "x.title.fontFamily").value,
+                                        fontWeight: Coalesce(LookUp(Chart.Options, key="x.title.fontWeight").value,"bold"),
+                                        fontStyle: Coalesce(LookUp(Chart.Options, key="x.title.fontStyle").value,"normal"),
+                                        color: Coalesce(LookUp(Chart.Options, key="x.title.color").value,"#333333"),
+                                        additionalStyles: LookUp(Chart.Options, key="x.title.additionalStyles").value
+                                    },
+                                    style: {
+                                        height: Round(Value(Coalesce(LookUp(Chart.Options, key = "x.height").value,"20")),3),
+                                        lineWidth: Round(Value(Coalesce(LookUp(Chart.Options, key = "x.lineWidth").value,"1")),3),
+                                        lineColor: Coalesce(LookUp(Chart.Options, key = "x.lineColor").value,"#333333"),
+                                        tickLength: Round(Value(Coalesce(LookUp(Chart.Options, key = "x.tickLength").value,"5")),3),
+                                        tickWidth: Round(Value(Coalesce(LookUp(Chart.Options, key = "x.tickWidth").value,"1")),3)
+                                    },
+                                    labels: {
+                                        enabled: LookUp(Chart.Options, key="x.labels").value <> "false",
+                                        format: LookUp(Chart.Options, key = "x.labels.format").value,
+                                        rotation: Round(Value(LookUp(Chart.Options, key = "x.labels.rotation").value),3),
+                                        fontSize: Round(Value(Coalesce(LookUp(Chart.Options, key = "x.labels.fontSize").value,"12")),3),
+                                        fontFamily: LookUp(Chart.Options, key = "x.labels.fontFamily").value,
+                                        fontWeight: Coalesce(LookUp(Chart.Options, key="x.labels.fontWeight").value,"bold"),
+                                        fontStyle: Coalesce(LookUp(Chart.Options, key="x.labels.fontStyle").value,"normal"),
+                                        color: Coalesce(LookUp(Chart.Options, key="x.labels.color").value,"#333333"),
+                                        additionalStyles: LookUp(Chart.Options, key="x.labels.additionalStyles").value
+                                    }
+                                },
+                                yAxis:{
+                                    enabled: LookUp(Chart.Options, key="y").value <> "false",
+                                    title: LookUp(Chart.Options, key="y.title").value,
+                                    titleStyle: {
+                                        align:If(LookUp(Chart.Options, key="y.title.align").value = "left","left","right"),
+                                        fontSize: Round(Value(Coalesce(LookUp(Chart.Options, key = "y.title.fontSize").value,"14")),3),
+                                        fontFamily: LookUp(Chart.Options, key = "y.title.fontFamily").value,
+                                        fontWeight: Coalesce(LookUp(Chart.Options, key="y.title.fontWeight").value,"bold"),
+                                        fontStyle: Coalesce(LookUp(Chart.Options, key="y.title.fontStyle").value,"normal"),
+                                        color: Coalesce(LookUp(Chart.Options, key="y.title.color").value,"#333333"),
+                                        additionalStyles: LookUp(Chart.Options, key="y.title.additionalStyles").value
+                                    },
+                                    align:Coalesce(LookUp(Chart.Options, key="y.align").value,"left"),
+                                    step:Round(Value(LookUp(Chart.Options, key = "y.step").value),3),
+                                    min:Round(Value(LookUp(Chart.Options, key = "y.min").value),3),
+                                    max:Round(Value(LookUp(Chart.Options, key = "y.max").value),3),
+                                    style: {
+                                        width: Round(Value(Coalesce(LookUp(Chart.Options, key = "y.width").value,"50")),3),
+                                        lineWidth: Round(Value(Coalesce(LookUp(Chart.Options, key = "y.lineWidth").value,"1")),3),
+                                        lineColor: Coalesce(LookUp(Chart.Options, key = "y.lineColor").value,"#333333"),
+                                        tickLength: Round(Value(Coalesce(LookUp(Chart.Options, key = "y.tickLength").value,"5")),3),
+                                        tickWidth: Round(Value(Coalesce(LookUp(Chart.Options, key = "y.tickWidth").value,"1")),3),
+                                        padTop:Round(Value(Coalesce(LookUp(Chart.Options, key = "y.padTop").value,"20")),3)
+                                    },
+                                    labels: {
+                                        enabled: LookUp(Chart.Options, key="y.labels").value <> "false",
+                                        format: Coalesce(LookUp(Chart.Options, key = "y.labels.format").value,"0"),
+                                        fontSize: Round(Value(Coalesce(LookUp(Chart.Options, key = "y.labels.fontSize").value,"12")),3),
+                                        fontFamily: LookUp(Chart.Options, key = "y.labels.fontFamily").value,
+                                        fontWeight: Coalesce(LookUp(Chart.Options, key="y.labels.fontWeight").value,"bold"),
+                                        fontStyle: Coalesce(LookUp(Chart.Options, key="y.labels.fontStyle").value,"normal"),
+                                        color: Coalesce(LookUp(Chart.Options, key="y.labels.color").value,"#333333"),
+                                        additionalStyles: LookUp(Chart.Options, key="y.labels.additionalStyles").value
+                                    }
+                                },
+                                stacked: LookUp(Chart.Options, key="bar.stacked").value = "true",
+                                style:{
+                                    itemGap:Round(Value(Coalesce(LookUp(Chart.Options, key = "bar.itemGap").value,"5")),3),
+                                    fillOpacity:Round(Value(Coalesce(LookUp(Chart.Options, key = "bar.fillOpacity").value,"1")),3),
+                                    borderWidth:Round(Value(LookUp(Chart.Options, key = "bar.borderWidth").value),3),
+                                    borderColor:LookUp(Chart.Options, key = "bar.borderColor").value
+                                },
+                                labels:Chart.Data.labels,
+                                legends:If(Chart.Legend.source = "labels", Chart.Data.labels, Chart.Data.legends)
+                            }),
+                                Concat(Table({
+                                    data:ForAll(FirstN(indexes,CountRows(legends)),{
+                                        index:index,
+                                        color:Last(FirstN(colors,index)).color,
+                                        values:ForAll(LookUp(Chart.Data.table, key=index & ".y").values,{Value:Round(Value(Value),3)})
+                                    }),
+                                    plot:{
+                                        x:If(yAxis.enabled && yAxis.align = "left",yAxis.style.width,0),
+                                        y:If(yAxis.enabled, yAxis.style.padTop, 0),
+                                        width:If(yAxis.enabled, Round(width - yAxis.style.width,3), width),
+                                        height:Round(height - If(xAxis.enabled,xAxis.style.height,0) - If(yAxis.enabled,yAxis.style.padTop,0),3)
+                                    },
+                                    xSpaces:If(
+                                        CountRows(labels)=1 && CountRows(legends)>1,
+                                        CountRows(legends),
+                                        CountRows(labels) + 1
+                                        ),
+            //CountRows(labels) + 1,
+                                    seriesCount:If(stacked,1,CountRows(legends))
+                                }),
+                                    Concat(AddColumns(Table({
+                                        barWidth:Round(Min(plot.height / xSpaces / seriesCount - style.itemGap,plot.height / xSpaces / seriesCount),3),
+                                        xSpaceWidth:Round((plot.height / xSpaces),3),
+                                        //PR: allows single-label / multi-legend charts
+                                        //to render as evenly spaced coloured bars.
+                                        //used when legends are being treated as categories
+                                        legendAsCategoryMode: CountRows(labels) = 1 && CountRows(legends) > 1,
+                                        labels:ForAll(FirstN(indexes,CountRows(labels)),{
+                                            x:Round(index * (plot.width / xSpaces),3),
+                                            labelText:Last(FirstN(labels,index)).Value
+                                        }),
+                                        data:ForAll(data,{
+                                            id:index,
+                                            color:color,
+                                            values:ForAll(FirstN(indexes,CountRows(labels)),{
+                                                index:index,
+                                                value:If(CountRows(values) < index, 0, Last(FirstN(values,index)).Value)
+                                            })
+                                        }),
+                                        min:If(yAxis.max <> yAxis.min,yAxis.min,stacked,0,RoundDown(Min(data,Min(values,Value)) - Max((Max(data,Max(values,Value)) - Min(data,Min(values,Value))) / 10,10),0)),
+                                        max:If(yAxis.max <> yAxis.min,yAxis.max,stacked,Max(ForAll(RenameColumns(FirstN(indexes,CountRows(labels)),index,i),{Value:Sum(data, Last(FirstN(values,i)).Value)}),Value),RoundUp(Max(data,Max(values,Value)),0)),
+                                        tickX:Round(If(yAxis.align = "left", -yAxis.style.tickLength, yAxis.style.tickLength),3),
+                                        labelX:Round(If(yAxis.align = "left",-yAxis.style.tickLength-5,yAxis.style.tickLength + 5),3),
+                                        labelAnchor:If(yAxis.align = "left","end","start")
+                                    }),step,If(yAxis.step = 0,RoundUp((max - min) / 5,0),yAxis.step)),
+                                    //X Axis
+                                    "<style>" &
+                                        ".x-labels{fill:"& xAxis.labels.color &";font-size:" & xAxis.labels.fontSize & "px;font-family:'" & xAxis.labels.fontFamily & "';font-weight:" & xAxis.labels.fontWeight & ";font-style:" & xAxis.labels.fontStyle & ";" & xAxis.labels.additionalStyles & "}"&
+                                        ".y-labels{fill:"& yAxis.labels.color &";font-size:" & yAxis.labels.fontSize & "px;font-family:'" & yAxis.labels.fontFamily & "';font-weight:" & yAxis.labels.fontWeight & ";font-style:" & yAxis.labels.fontStyle & ";" & yAxis.labels.additionalStyles & "}"&
+                                    "</style>" &
+                                    If(xAxis.enabled,"<g class='x-axis' transform='translate(" & Text(plot.x, "#0.000", "en-us") & "," & Text(Round(plot.y + plot.height,3), "#0.000", "en-us") & ")'>" &
+                                        "<path d='M0,0H" & Text(Round(plot.x + plot.width,3), "#0.000", "en-us") & "'  "&
+                                            "fill='none' " & 
+                                            "stroke-width='" & Text(xAxis.style.lineWidth, "#0.000", "en-us") & "' " &
+                                            "stroke='" & xAxis.style.lineColor & "'/>" &
+                                        If(!IsBlank(xAxis.title), "<text dy='0.35em' " &
+                                            "text-anchor='" & If(xAxis.titleStyle.align = "left","start","end") & "' " &
+                                            "x='" & Text(If(xAxis.titleStyle.align="left",10,Round(width - yAxis.style.width - 10,3)), "#0.000", "en-us") & "' " &
+                                            "y='" & Text(xAxis.titleStyle.y, "#0.000", "en-us") & "' " &
+                                            "style='" &
+                                                "fill:" & xAxis.titleStyle.color & ";" &
+                                                "font-size:" & xAxis.titleStyle.fontSize & "px;" &
+                                                "font-family:" & xAxis.titleStyle.fontFamily & ";" &
+                                                "font-weight:" & xAxis.titleStyle.fontWeight & ";" &
+                                                "font-style:" & xAxis.titleStyle.fontStyle & ";" & xAxis.titleStyle.additionalStyles & "'>" &
+                                            xAxis.title &
+                                        "</text>") &
+                                        "<g>" &
+                                            Concat(labels,
+                                            "<g transform='translate(" & Text(x, "#0.000", "en-us") & ",0)'>" &
+                                                "<path d='M0,0V" & Text(xAxis.style.tickLength, "#0.000", "en-us") & "' stroke-width='" & Text(xAxis.style.tickWidth, "#0.000", "en-us") & "' stroke='" & xAxis.style.lineColor & "'/>" &
+                                                If(xAxis.labels.enabled, "<text transform='rotate(" & Text(xAxis.labels.rotation, "#0.000", "en-us") & ",0,5)' class='x-labels' dy='1em' y='5' text-anchor='"& If(xAxis.labels.rotation > 0,"start",xAxis.labels.rotation < 0,"end", "middle") & "' x='0'>" &
+                                                    labelText &
+                                                "</text>") &
+                                            "</g>") &
+                                        "</g>" &
+                                    "</g>") &
+                                    //Y Axis
+                                    If(yAxis.enabled,"<g class='y-axis' transform='translate(" & Text(If(yAxis.align = "left",0,Round(width - yAxis.style.width,3)), "#0.000", "en-us") & ",0)'>" &
+                                        If(!IsBlank(yAxis.title), "<text dy='.5em' " &
+                                            "text-anchor='" & If(yAxis.titleStyle.align = "left","end","start") & "' " &
+                                            "x='" & Text(Round(If(yAxis.align="left",yAxis.style.width,0) + If(yAxis.titleStyle.align = "left",-10,10),3), "#0.000", "en-us") & "' " &
+                                            "y='0' " &
+                                            "style='" &
+                                                "fill:" & yAxis.titleStyle.color & ";" &
+                                                "font-size:" & yAxis.titleStyle.fontSize & "px;" &
+                                                "font-family:" & yAxis.titleStyle.fontFamily & ";" &
+                                                "font-weight:" & yAxis.titleStyle.fontWeight & ";" &
+                                                "font-style:" & yAxis.titleStyle.fontStyle & ";" & yAxis.titleStyle.additionalStyles & "'>" &
+                                            yAxis.title &
+                                        "</text>") &
+                                        "<path transform='translate(" & Text(Round(If(yAxis.align = "left", yAxis.style.width, 0),3), "#0.000", "en-us") & ",0)' d='M0,0L3,10L-3,10L0,0V" & Text(Round(plot.y + plot.height,3), "#0.000", "en-us") & "'  "&
+                                            "fill='" & yAxis.style.lineColor & "' " & 
+                                            "stroke-width='" & Text(yAxis.style.lineWidth, "#0.000", "en-us") & "' " &
+                                            "stroke='" & yAxis.style.lineColor & "'/>" &
+                                        "<g>" &
+                                            "<g transform='translate(" & Text(If(yAxis.align = "left", yAxis.style.width, 0), "#0.000", "en-us") & "," & Text(Round(plot.y + plot.height,3), "#0.000", "en-us") & ")'>" &
+                                                "<path d='M0,0H" & Text(tickX, "#0.000", "en-us") & "' stroke-width='" & Text(yAxis.style.tickWidth, "#0.000", "en-us") & "' stroke='" & yAxis.style.lineColor & "'/>" &
+                                                If(yAxis.labels.enabled,
+                                                "<text class='y-labels' dy='.5em' y='-5' text-anchor='"& labelAnchor & "' x='"& Text(labelX, "#0.000", "en-us") & "'>" &
+                                                    Text(min, yAxis.labels.format) &
+                                                "</text>") &
+                                            "</g>" &
+                                            Concat(ForAll(Filter(indexes, index <= RoundUp((max - min) / step,0)),{
+                                                y:Round(plot.y + (plot.height) * (1 - step * index / (max - min)),3),
+                                                label:Text(min + index * step, yAxis.labels.format)
+                                            }),
+                                            "<g transform='translate(" & Text(If(yAxis.align = "left", yAxis.style.width, 0), "#0.000", "en-us") & "," & Text(y, "#0.000", "en-us") & ")'>" &
+                                                "<path d='M0,0H" & Text(tickX, "#0.000", "en-us") & "' stroke-width='" & Text(yAxis.style.tickWidth, "#0.000", "en-us") & "' stroke='" & yAxis.style.lineColor & "'/>" &
+                                                If(yAxis.labels.enabled,
+                                                "<text class='y-labels' dy='.5em' y='-5' text-anchor='"& labelAnchor & "' x='"& Text(labelX, "#0.000", "en-us") & "'>" &
+                                                    label &
+                                                "</text>") &
+                                            "</g>") &
+                                        "</g>" &
+                                    "</g>") &
+                                    "<g transform='translate("&Text(plot.x, "#0.000", "en-us")&","&Text(plot.y, "#0.000", "en-us")&")'>" &
+                                        Concat(Sort(ForAll(data,{
+                                            id:id,
+                                            color:color,
+                                            borderColor:Coalesce(style.borderColor,color),
+                                            points:AddColumns(values,
+                                                y,Round(
+                                                    If(
+                                                        legendAsCategoryMode,0,index * xSpaceWidth
+                                                    ),3
+                                                ),
+                                                x,Round(plot.width * (value - min) / (max - min),3),
+                                                baseX,If(stacked,Round(plot.width * (Sum(Filter(RenameColumns(data,id,tempId), tempId < id),Last(FirstN(values,index)).value)) / (max-min),3),0),
+                                                offsetY,
+                                                If(
+                                                    legendAsCategoryMode,
+                                                    Round(
+                                                        ((plot.height - barWidth) / CountRows(legends)) * (id - 1), 3
+                                                        ),
+                                                        If(
+                                                            !stacked,
+                                                            Round((barWidth + style.itemGap) * (CountRows(legends) - id),3)
+                                                        )
+                                                    ) + (xSpaceWidth / 2)
+                                                    )
+                                        }),id,SortOrder.Ascending),
+                                            "<g class='bar' transform='translate(" & "0"/*Text(Round(-(xSpaceWidth - style.itemGap) / 2,3), "#0.000", "en-us")*/ & ",0)' " &
+                                                    "fill='" & color & "' " & 
+                                                    "fill-opacity='" & style.fillOpacity & "'>" &
+                                                Concat(points,
+                                                    "<path d='M"& Text(baseX,"#0.000","en-us") & "," & Text(y + offsetY,"#0.000","en-us") &
+                                                        "H" & Text(baseX + x, "#0.000", "en-us") &
+                                                        "V" & Text(y + offsetY + barWidth,"#0.000","en-us") &
+                                                        "H" & Text(baseX,"#0.000","en-us") & 
+                                                        "V" & Text(y + offsetY, "#0.000","en-us") &"' " & 
+                                                    "stroke='" & borderColor & "' " & 
+                                                    "stroke-width='" & Text(style.borderWidth, "#0.000", "en-us") & "'/>") &
+                                            "</g>"
+                                        ) &
+                                    "</g>"
+                                    )
+                                )
+                            ),
+                        "</svg>"
+                    ),
+                    "%", "%25"), "<", "%3C"), ">", "%3E"), "#", "%23"), "{", "%7B"), "}", "%7D")
+            ))
+        PressedBorderColor: =ColorFade(Self.BorderColor, -20%)
+        PressedFill: =ColorFade(Self.Fill, -20%)
+        Width: =PlotArea.Width
+        X: =PlotArea.X
+        Y: =67
+        ZIndex: =13
 

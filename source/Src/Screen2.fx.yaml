@@ -61,7 +61,6 @@ Screen2 As screen:
                 color: "#666666",
                 align: "center"
             }
-        Type: ="Bar"
         Width: =400
         X: =472
         Y: =171

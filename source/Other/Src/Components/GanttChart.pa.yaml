@@ -1,0 +1,241 @@
+# ************************************************************************************************
+# Warning: YAML source code for Canvas Apps should only be used to review changes made within Power Apps Studio and for minor edits (Preview).
+# Use the maker portal to create and edit your Power Apps.
+# 
+# The schema file for Canvas Apps is available at https://go.microsoft.com/fwlink/?linkid=2304907
+# 
+# For more information, visit https://go.microsoft.com/fwlink/?linkid=2292623
+# ************************************************************************************************
+ComponentDefinitions:
+  GanttChart:
+    DefinitionType: CanvasComponent
+    CustomProperties:
+      Colors:
+        PropertyKind: Input
+        DisplayName: Colors
+        Description: Colors
+        DataType: Table
+        Default: =["#31825d", "#30a667", "#5ec16c", "#f6c790", "#f7c772", "#f7b45b", "#f68f64", "#d46068", "#946eb0", "#769acc", "#60c5ea"]
+      Data:
+        PropertyKind: Input
+        DisplayName: Data
+        Description: Data
+        DataType: Record
+        Default: |-
+          ={
+              legends: ["Label1","Label2","Label3","Label4","Label5"],
+              clabels: ["Process 1","Process 2","Process 3","Process 4","Process 5"],
+              intervals: Table(
+                  {start:"01/10/2018",end:"02/01/2018",colorindex:1,process:1},        {start:"03/10/2018",end:"05/01/2018",colorindex:5,process:2}
+              )
+          }
+      Legend:
+        PropertyKind: Input
+        DisplayName: Legend
+        Description: Legend
+        DataType: Record
+        Default: |-
+          ={
+              enabled: true,
+              placement: "bottom",
+              width: 100,
+              height: 45,
+              itemGap: 5,
+              fontSize: 14,
+              fontFamily: "",
+              fontWeight: "bold",
+              fontStyle: "normal",
+              color: "#666666",
+              align: "center"
+          }
+      Options:
+        PropertyKind: Input
+        DisplayName: Options
+        Description: Options
+        DataType: Table
+        Default: |-
+          =Table(
+              {key:"gantt.type", value:"month"},
+              {key:"gantt.step", value:"3"},
+              {key:"gantt.startDate", value:"01/18/2018"},
+              {key:"gantt.endDate", value:"06/25/2018"},
+              {key:"gantt.lineColor", value:"#5a5252"},
+              {key:"gantt.fontColor", value:"#5a5252"},
+              {key:"gantt.barHeight", value:"30"},
+              {key:"gantt.rowHeight", value:"50"},
+              {key:"gantt.rowHeaderHeight", value:"60"},
+              {key:"gantt.columnHeaderWidth", value:"120"},
+              {key:"gantt.rowHeaderFontSize", value:"12"},
+              {key:"gantt.rowHeaderFontSize", value:"12"}
+          )
+      Subtitle:
+        PropertyKind: Input
+        DisplayName: Subtitle
+        Description: Subtitle
+        DataType: Record
+        Default: |-
+          ={
+              text: "Subtitle",
+              height: 12,
+              align: "center",
+              paddingTop: 12,
+              fontSize: 12,
+              fontFamily: "",
+              fontWeight: "bold",
+              fontStyle: "normal",
+              color: "#808080",
+              additionalStyles: ""
+          }
+      Title:
+        PropertyKind: Input
+        DisplayName: Title
+        Description: Title
+        DataType: Record
+        Default: |-
+          ={
+              text: "Title",
+              height: 20,
+              align: "center",
+              paddingTop: 10,
+              fontSize: 20,
+              fontFamily: "",
+              fontWeight: "bold",
+              fontStyle: "normal",
+              color: "#666666",
+              additionalStyles: ""
+          }
+    Children:
+      - GanttLegend:
+          Control: Image@2.2.3
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            FocusedBorderColor: =GanttLegend.BorderColor
+            Height: =If(Parent.Legend.placement = "top" || Parent.Legend.placement = "bottom", Parent.Legend.height, Parent.Height)
+            HoverBorderColor: =ColorFade(GanttLegend.BorderColor, 20%)
+            HoverFill: =ColorFade(GanttLegend.Fill, 20%)
+            Image: |-
+              =If(Parent.Legend.enabled, Concat(
+                  Table({
+                      items: Parent.Data.legends,
+                      indexes: ForAll(
+                          ForAll(Split(
+                              Concat(
+                                  Table({ 
+                                      indexes: ForAll(
+                                          ForAll(Split(Coalesce(LookUp(Parent.Options, key="indexes").value, "1,2,3,4,5,6,7,8,9,10"), ","), {Result: ThisRecord.Value}),
+                                          Value(Result)
+                                      )
+                                  }),
+                                  Concat(
+                                      RenameColumns(indexes, Value,baseIndex), 
+                                      Concat(indexes, Text((baseIndex - 1) * CountRows(indexes) + Value), ","),
+                                      ","
+                                  )
+                              ), ","), {Result: ThisRecord.Value}),
+                          { index: Value(Result) }
+                      ) //1, 2, 3, 4, ..., 99, 100
+                  }),
+                  Substitute(Substitute(Substitute(Substitute(Substitute(Substitute(
+                      Concatenate(
+                          "data:image/svg+xml;charset=utf8,", 
+                          "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 " & Text(GanttLegend.Width, "#0.000", "en-us") & " " & Text(GanttLegend.Height, "#0.000", "en-us") & "'>",
+                          "<g>",
+                              "<style>",
+                                  ".legend{padding:5px;color:" & Parent.Legend.color & ";text-align:" & Parent.Legend.align & ";font-family:" & Parent.Legend.fontFamily & ";font-size:" & Text(Parent.Legend.fontSize, "#0.000", "en-us") & "px;font-weight:" & Parent.Legend.fontWeight & ";font-style:" & Parent.Legend.fontStyle & ";}",
+                                  ".legend>span{display:inline-block;margin-right:" & Text(Parent.Legend.itemGap, "#0.000", "en-us") & "px;}",
+                                  ".legend>span>i{display:inline-block;width:1em;height:1em;background-color:silver;margin-right:5px;vertical-align:middle;border:1px solid white;border-radius:20%;}",
+                                  ".legend>span>span{vertical-align: middle;}",
+                                  ".legend.legend-aside>span{display:block;margin-bottom:" & Parent.Legend.itemGap & "px;}",
+                              "</style>",
+                              "<foreignObject x='0' y='0' width='100%' height='100%'>",
+                                  "<div xmlns='http://www.w3.org/1999/xhtml' class='legend " & If(Parent.Legend.placement = "left" || Parent.Legend.placement = "right", "legend-aside", "") & "'>",
+                                      Concat(
+                                          ForAll(
+                                              FirstN(indexes, CountRows(items)),
+                                              {
+                                                  color:Last(FirstN(Parent.Colors, index)).Value,
+                                                  text:Last(FirstN(items, index)).Value
+                                              }),
+                                          Concatenate(
+                                              "<span xmlns='http://www.w3.org/1999/xhtml'>",
+                                                  "<i xmlns='http://www.w3.org/1999/xhtml' style='background-color:" & color & ";'></i>",
+                                                  "<span xmlns='http://www.w3.org/1999/xhtml'>" & text & "</span>",
+                                              "</span>")
+                                      ),
+                                  "</div>",
+                              "</foreignObject>",
+                          "</g>",
+                      "</svg>"),
+                      "%", "%25"), "<", "%3C"), ">", "%3E"), "#", "%23"), "{", "%7B"), "}", "%7D")
+                  )
+              )
+            PressedBorderColor: =ColorFade(GanttLegend.BorderColor, -20%)
+            PressedFill: =ColorFade(GanttLegend.Fill, -20%)
+            Width: =If(Parent.Legend.placement = "top" || Parent.Legend.placement = "bottom", Parent.Width, Parent.Legend.width)
+            X: = If(Parent.Legend.placement = "right", Round(Parent.Width - Parent.Legend.width, 3), 0)
+            Y: =If(Parent.Legend.placement = "bottom", Round(Parent.Height - Parent.Legend.height ,3), GanttHeader.Height)
+      - Gantt:
+          Control: Image@2.2.3
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            FocusedBorderColor: =Gantt.BorderColor
+            Height: =Round(If(IsBlank(Parent.Title.text), Parent.Height, Parent.Height - GanttHeader.Height) - If(Parent.Legend.enabled && (Parent.Legend.placement = "top" || Parent.Legend.placement = "bottom"),Parent.Legend.height,0),3)
+            HoverBorderColor: =ColorFade(Gantt.BorderColor, 20%)
+            HoverFill: =ColorFade(Gantt.Fill, 20%)
+            Image: "=Concat(\r\n    Table({\r\n        width: Gantt.Width,\r\n        height: Gantt.Height,\r\n        colors:RenameColumns(Parent.Colors,Value,color),\r\n        indexes: ForAll(\r\n            ForAll(Split(\r\n                Concat(\r\n                    Table({ \r\n                        indexes: ForAll(\r\n                            ForAll(Split(Coalesce(LookUp(Parent.Options, key=\"indexes\").value, \"1,2,3,4,5,6,7,8,9,10\"), \",\"), {Result: ThisRecord.Value}),\r\n                            Value(Result)\r\n                        )\r\n                    }),\r\n                    Concat(\r\n                        RenameColumns(indexes, Value,baseIndex), \r\n                        Concat(indexes, Text((baseIndex - 1) * CountRows(indexes) + Value), \",\"),\r\n                        \",\"\r\n                    )\r\n                ), \",\"), {Result: ThisRecord.Value}),\r\n            { index: Value(Result) }\r\n        ) //1, 2, 3, 4, ..., 99, 100\r\n    }), \r\n     Substitute(Substitute(Substitute(Substitute(Substitute(Substitute(\r\n        Concatenate(\r\n            \"data:image/svg+xml;charset=utf8,\", \r\n            \"<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 \" & Text(width, \"#0.000\", \"en-us\") & \" \" & Text(height, \"#0.000\", \"en-us\") & \"'>\",\r\n                Concat(AddColumns(\r\n                                AddColumns(\r\n                                            AddColumns(\r\n                                                        AddColumns(Table({\r\n                                                                            clabels:Parent.Data.clabels,\r\n                                                                            intervals:Parent.Data.intervals,\r\n                                                                            padLeft:Round(Value(Coalesce(LookUp(Parent.Options, key = \"table.padLeft\").value,\"5\")),3),\r\n                                                                            padRight:Round(Value(Coalesce(LookUp(Parent.Options, key = \"table.padRight\").value,\"5\")),3),\r\n                                                                            padTop:Round(Value(Coalesce(LookUp(Parent.Options, key = \"table.padTop\").value,\"5\")),3),\r\n                                                                            rowHeaderHeight:Round(Value(Coalesce(LookUp(Parent.Options, key = \"gantt.rowHeaderHeight\").value,\"40\")),3),\r\n                                                                            columnHeaderWidth: Round(Value(Coalesce(LookUp(Parent.Options, key = \"gantt.columnHeaderWidth\").value,\"80\")),3),\r\n\r\n                                                                            rowHeaderColor: Coalesce(LookUp(Parent.Options, key = \"gantt.fontColor\").value,\"#5a5252\"),\r\n                                                                            columnHeaderColor: Coalesce(LookUp(Parent.Options, key = \"gantt.fontColor\").value,\"#1b1919\"),\r\n\r\n                                                                            rowHeaderFontSize: Coalesce(LookUp(Parent.Options, key = \"gantt.rowHeaderFontSize\").value,\"12\"),\r\n                                                                            columnHeaderFontSize: Coalesce(LookUp(Parent.Options, key = \"gantt.columnHeaderFontSize\").value,\"12\"),\r\n                                                                            \r\n                                                                            separateBy:LookUp(Parent.Options, key=\"gantt.type\").value,\r\n                                                                            startDate: DateValue(LookUp(Parent.Options, key=\"gantt.startDate\").value),\r\n                                                                            endDate: DateValue(LookUp(Parent.Options, key=\"gantt.endDate\").value)\r\n                                                                        })\r\n                                                                        , newStartDate\r\n                                                                        , If(separateBy = \"month\", Date(Year(startDate), Month(startDate), 1), startDate)\r\n                                                                        , newEndDate\r\n                                                                        , If(separateBy = \"month\"\r\n                                                                                    , If(DateDiff(startDate, endDate, TimeUnit.Years) > 0,\r\n                                                                                        DateAdd(DateValue(\"01/01/\" & Text(Year(endDate))), -1),\r\n                                                                                        DateAdd(DateAdd(endDate, 1, TimeUnit.Months), 0 - Day(endDate)))\r\n\r\n                                                                                    , If(Mod(DateDiff(startDate, endDate, TimeUnit.Days) + 1,7) > 0\r\n                                                                                            , DateAdd(endDate, 7 - Mod(DateDiff(startDate, endDate, TimeUnit.Days) + 1,7))\r\n                                                                                            , endDate)\r\n                                                                            )\r\n                                                                        )\r\n                                                            ,columnsCount\r\n                                                            , If(separateBy = \"month\"\r\n                                                                    , DateDiff(newStartDate, newEndDate, TimeUnit.Months) + 1\r\n                                                                    , DateDiff(newStartDate, newEndDate, TimeUnit.Days)/7\r\n                                                                )\r\n                                                            , allDays\r\n                                                            , DateDiff(newStartDate, newEndDate) + 1\r\n                                                        )\r\n                                                        , rlabels\r\n                                                        , If(separateBy = \"month\"\r\n                                                                , ForAll(FirstN(indexes, columnsCount), Text(DateAdd(newStartDate, index-1, TimeUnit.Months),\"[$-en-US]mmm\"))\r\n                                                                , ForAll(FirstN(indexes, columnsCount), \"Week\" & Text(index))\r\n                                                            )\r\n                                    )\r\n                                    ,step\r\n                                    ,Min(LookUp(Parent.Options, key=\"gantt.step\").value, CountRows(rlabels))\r\n                                ),\r\n                        Concat(AddColumns(\r\n                                    Table({\r\n                                        row:\r\n                                            {\r\n                                                x1: padLeft,\r\n                                                y1: padTop,\r\n                                                x2: width - padRight,\r\n                                                y2: padTop,\r\n                                                lineWidth: Round(Value(Coalesce(LookUp(Parent.Options, key = \"row.lineWidth\").value,\"1\")),3),\r\n                                                lineColor: Coalesce(LookUp(Parent.Options, key = \"gantt.lineColor\").value,\"#5ec16c\"),\r\n                                                height: Min(Round(Value(Coalesce(LookUp(Parent.Options, key = \"gantt.rowHeight\").value, Text((height - padTop - rowHeaderHeight)/CountRows(clabels)))), 3),\r\n                                                            Round((height - padTop - rowHeaderHeight)/CountRows(clabels), 3))\r\n                                            },\r\n                                        contentWidth: width - padLeft -padRight - columnHeaderWidth\r\n                                    }),\r\n                                    column,\r\n                                    {\r\n                                        x1:padLeft,\r\n                                        y1: padTop,\r\n                                        x2: padLeft,\r\n                                        y2: Min(height, rowHeaderHeight + row.height * CountRows(clabels) + padTop),\r\n                                        lineWidth: Round(Value(Coalesce(LookUp(Parent.Options, key = \"column.lineWidth\").value,\"1\")),3),\r\n                                        lineColor: Coalesce(LookUp(Parent.Options, key = \"gantt.lineColor\").value,\"#946eb0\"),\r\n                                        width: Round(Value(Coalesce(LookUp(Parent.Options, key = \"column.width\").value, Text((width - padLeft -padRight - columnHeaderWidth)/CountRows(rlabels)))), 3)\r\n                                    }),\r\n                                    //row lines\r\n                                    \"<g id='rowGroup'>\"\r\n                                    & \" <style>.line{stroke: \" & row.lineColor & \";stroke-width: \" & Text(row.lineWidth, \"#0.000\", \"en-us\") & \";}</style>\"\r\n                                    & \"<line x1='\" & Text(row.x1, \"#0.000\", \"en-us\") & \"' y1='\" & Text(row.y1, \"#0.000\", \"en-us\") & \"' x2 = '\" & Text(row.x2, \"#0.000\", \"en-us\") & \"' y2 = '\" & Text(row.y2, \"#0.000\", \"en-us\")  & \"'  transform='translate(0,0)' class='line' />\"  \r\n                                    & \"<line x1='\" & Text(row.x1, \"#0.000\", \"en-us\") & \"' y1='\" & Text(row.y1, \"#0.000\", \"en-us\") & \"' x2 = '\" & Text(row.x2, \"#0.000\", \"en-us\") & \"' y2 = '\" & Text(row.y2, \"#0.000\", \"en-us\") & \"'  transform='translate(0,\"  & Text(rowHeaderHeight, \"#0.000\", \"en-us\") & \")' class='line' />\"  \r\n                                    & Concat( ForAll(FirstN(indexes, CountRows(clabels)),\r\n                                                            {\r\n                                                                transform: rowHeaderHeight + index * row.height\r\n                                                            }\r\n                                                    ),\r\n                                                    \"<line x1='\" & Text(row.x1, \"#0.000\", \"en-us\") & \"' y1='\" & Text(row.y1, \"#0.000\", \"en-us\") & \"' x2 = '\" & Text(row.x2, \"#0.000\", \"en-us\") & \"' y2 = '\" & Text(row.y2, \"#0.000\", \"en-us\") & \"'  transform='translate(0,\"  & Text(transform, \"#0.000\", \"en-us\") & \")' class='line' />\"\r\n                                    )\r\n                                    & \"</g>\"\r\n                                    //column lines\r\n                                    &\"<g id='columnGroup'>\"\r\n                                    &\" <style>.cline{stroke: \" & column.lineColor & \";stroke-width: \" & Text(column.lineWidth, \"#0.000\", \"en-us\") & \";}</style>\"\r\n                                    & \"<line x1='\" & Text(column.x1, \"#0.000\", \"en-us\") & \"' y1='\" & Text(column.y1, \"#0.000\", \"en-us\") & \"' x2 = '\" & Text(column.x2, \"#0.000\", \"en-us\") & \"' y2 = '\" & Text(column.y2, \"#0.000\", \"en-us\")  & \"'  transform='translate(0,0)' class='cline' />\"  \r\n                                    & \"<line x1='\" & Text(column.x1, \"#0.000\", \"en-us\") & \"' y1='\" & Text(column.y1, \"#0.000\", \"en-us\") & \"' x2 = '\" & Text(column.x2, \"#0.000\", \"en-us\") & \"' y2 = '\" & Text(column.y2, \"#0.000\", \"en-us\") & \"'  transform='translate(\"  & Text(columnHeaderWidth, \"#0.000\", \"en-us\") & \", 0)' class='cline' />\" \r\n                                    & Concat(ForAll(FirstN(indexes, CountRows(rlabels)),If(separateBy = \"month\"\r\n                                                                                                , { x1: column.x1 + columnHeaderWidth + Round( (DateDiff(newStartDate, DateAdd(Date(Year(newStartDate), Month(newStartDate)+index, 1), -1)) + 1)/allDays * contentWidth, 3),\r\n                                                                                                    y1: If( Mod(index, step) > 0 && Not(index = CountRows(rlabels)), column.y1 + rowHeaderHeight, column.y1),\r\n                                                                                                    y2: column.y2}\r\n                                                                                                , { x1: column.x1 + columnHeaderWidth + index * column.width,\r\n                                                                                                    y1: If( Mod(index, step) > 0 && Not(index = CountRows(rlabels)), column.y1 + rowHeaderHeight, column.y1),\r\n                                                                                                    y2: column.y2}\r\n                                            )),\r\n                                            \"<line x1='\" \r\n                                            & Text(x1, \"#0.000\", \"en-us\") & \"' y1='\" \r\n                                            & Text(y1, \"#0.000\", \"en-us\") & \"' x2 = '\" \r\n                                            & Text(x1, \"#0.000\", \"en-us\") & \"' y2 = '\" \r\n                                            & Text(y2, \"#0.000\", \"en-us\") & \"' class='cline' />\"\r\n                                            )\r\n                                    &\"</g>\"\r\n\r\n                                    // rowheaders\r\n                                    &\"<g>\"\r\n                                    &\"<style>\" &\r\n                                        \".rowheader{ font-size: \"& Text(rowHeaderFontSize, \"#0.000\", \"en-us\") & \"px; fill:\" & rowHeaderColor & \"}\"&\r\n                                    \"</style>\"\r\n                                    &Concat( AddColumns( Filter(ForAll( FirstN(indexes, CountRows(rlabels)),\r\n                                                                                {\r\n                                                                                    cellx: row.x1 + columnHeaderWidth + column.width * (index -1),\r\n                                                                                    celly: row.y1 + Round(rowHeaderHeight/2,3),\r\n                                                                                    celllable: Last(FirstN(rlabels,index)).Value,\r\n                                                                                    cellIndex: (index-1)/step,\r\n                                                                                    //cellWidth: column.width * step,\r\n                                                                                    cellHeight: rowHeaderHeight,\r\n                                                                                    enabled: If(Mod(index-1, step) = 0, \"1\", \"0\")\r\n                                                                                } \r\n                                                                        ), enabled = \"1\")\r\n                                                        ,cellWidth\r\n                                                        ,Round( If( (cellIndex + 1) * step <= CountRows(rlabels), column.width * step ,  column.width * (CountRows(rlabels) - cellIndex * step) ), 3)\r\n                                                        ), \r\n                                                        \"<text class='rowheader' dominant-baseline='middle' text-anchor='middle' x='\" & Text((cellx + Round(cellWidth/2,3)), \"#0.000\", \"en-us\") & \"' y='\" & Text(celly, \"#0.000\", \"en-us\") & \"'>\"\r\n                                                        & celllable\r\n                                                        & \"</text>\"\r\n                                            )\r\n                                    &\"</g>\"\r\n\r\n                                    //columnheaders\r\n                                    &\"<g>\"\r\n                                    &\"<style>\" &\r\n                                        \".columnheader{ font-size: \"& Text(columnHeaderFontSize, \"#0.000\", \"en-us\") & \"px; fill:\" & columnHeaderColor & \"}\"&\r\n                                    \"</style>\"\r\n                                    &Concat( ForAll( FirstN(indexes, CountRows(clabels)),\r\n                                                            {\r\n                                                                cellx: row.x1 + Round(columnHeaderWidth/2,3),\r\n                                                                celly: row.y1 + rowHeaderHeight + row.height * (index -1) + Round(row.height/2,3),\r\n                                                                celllable: Last(FirstN(clabels,index)).Value,\r\n                                                                cid: index\r\n                                                            }\r\n                                                        ), \r\n                                                        \"<text class='columnheader' dominant-baseline='middle' text-anchor='middle' x='\" & Text(cellx, \"#0.000\", \"en-us\") & \"' y='\" & Text(celly, \"#0.000\", \"en-us\") & \"'>\"\r\n                                                        & celllable\r\n                                                        & \"</text>\"\r\n\r\n                                            )\r\n                                    &\"</g>\"\r\n                                    &\"<g>\"\r\n                                    //shaps\r\n                                    &Concat(AddColumns(AddColumns(ForAll(Filter(intervals, DateDiff( DateValue(start), DateValue(end)) > 0 \r\n                                                                                    && process <= CountRows(clabels) \r\n                                                                                    && DateDiff(newStartDate, DateValue(end)) >=0 \r\n                                                                                    && DateDiff(DateValue(start), newEndDate) >=0 ), \r\n                                                                        {\r\n                                                                            processIndex: process,\r\n                                                                            colorId: colorindex,\r\n                                                                            intervalH: Round(Value(Coalesce(LookUp(Parent.Options, key = \"gantt.barHeight\").value,\"16\")),3),\r\n                                                                            intervalStartDate: If(DateDiff(DateValue(start),newStartDate) >= 0, newStartDate, DateValue(start)),\r\n                                                                            intervalEndDate: If(DateDiff(newEndDate, DateValue(end)) >=0, newEndDate, DateValue(end))       \r\n                                                                        }\r\n                                                                )\r\n                                                                , intervalFill\r\n                                                                , If(colorId <=CountRows(colors),Last(FirstN(colors,colorId)).color, \"#ff0000\")\r\n                                                                , intervalStartWidth\r\n                                                                , Round(DateDiff( newStartDate, intervalStartDate)/allDays * contentWidth, 3)\r\n                                                                , intervalEndWidth\r\n                                                                , Round((DateDiff( newStartDate, intervalEndDate) + 1) /allDays * contentWidth, 3)\r\n                                                            )\r\n                                                            , intervalX\r\n                                                            , (row.x1 + columnHeaderWidth + intervalStartWidth)\r\n                                                            , intervalY\r\n                                                            , If(row.height >= intervalH, Round((row.height - intervalH)/2, 3), 0) + (row.y1 + rowHeaderHeight) + row.height * (processIndex -1)\r\n                                                            , intervalwidth\r\n                                                            , intervalEndWidth - intervalStartWidth\r\n                                                            , intervalheight\r\n                                                            , Min(row.height,intervalH)\r\n                                            ), \r\n                                            \"<rect rx='5' ry='5' x='\"\r\n                                            & Text(intervalX, \"#0.000\", \"en-us\")\r\n                                            & \"' y='\"\r\n                                            & Text(intervalY, \"#0.000\", \"en-us\")\r\n                                            & \"' width='\"\r\n                                            & Text(intervalwidth, \"#0.000\", \"en-us\")\r\n                                            & \"' height='\"\r\n                                            & Text(intervalheight, \"#0.000\", \"en-us\")\r\n                                            & \"' style='fill:\"\r\n                                            & intervalFill\r\n                                            & \"' />\"\r\n                                        )\r\n                                    &\"</g>\"\r\n                        )\r\n                ),\r\n            \"</svg>\"\r\n        ),\r\n        \"%\", \"%25\"), \"<\", \"%3C\"), \">\", \"%3E\"), \"#\", \"%23\"), \"{\", \"%7B\"), \"}\", \"%7D\")\r\n)"
+            PressedBorderColor: =ColorFade(Gantt.BorderColor, -20%)
+            PressedFill: =ColorFade(Gantt.Fill, -20%)
+            Width: =Round(Parent.Width - If(Parent.Legend.enabled && (Parent.Legend.placement = "left" || Parent.Legend.placement = "right"),Parent.Legend.width,0),3)
+            X: =Round(If(Parent.Legend.enabled && Parent.Legend.placement = "left", Parent.Legend.width,0),3)
+            Y: =Round(GanttHeader.Height + If(Parent.Legend.enabled && Parent.Legend.placement = "top", Parent.Legend.height, 0), 3)
+      - GanttHeader:
+          Control: Image@2.2.3
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            FocusedBorderColor: =GanttHeader.BorderColor
+            Height: =Parent.Title.paddingTop + Parent.Title.height + If(IsBlank(Parent.Subtitle.text), 0, Parent.Subtitle.paddingTop + Parent.Subtitle.height)
+            HoverBorderColor: =ColorFade(GanttHeader.BorderColor, 20%)
+            HoverFill: =ColorFade(GanttHeader.Fill, 20%)
+            Image: |-
+              = Substitute(Substitute(Substitute(Substitute(Substitute(Substitute(
+                  Concatenate(
+                      "data:image/svg+xml;charset=utf8,", 
+                      "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 " & Text(GanttHeader.Width, "#0.000", "en-us") & " " & Text(GanttHeader.Height, "#0.000", "en-us") & "'>",
+                      If(!IsBlank(Parent.Title.text), Concatenate(
+                          "<g>",
+                              "<text x='" & Text(Round(Switch(Parent.Title.align,"left",0,"right", GanttHeader.Width, GanttHeader.Width/2),3), "#0.000", "en-us") & "' " &
+                                      "y='" & Text(Parent.Title.paddingTop, "#0.000", "en-us") & "' " &
+                                      "dy='1em' " &
+                                      "text-anchor='" & Switch(Parent.Title.align,"left","start","right","end","middle") &"'>" &
+                                  "<tspan style='" &
+                                          "fill:" & Parent.Title.color & ";" &
+                                          "font-size:" & Text(Parent.Title.fontSize, "#0.000", "en-us") & "px;" &
+                                          "font-family:" & Parent.Title.fontFamily & ";" &
+                                          "font-weight:" & Parent.Title.fontWeight & ";" &
+                                          "font-style:" & Parent.Title.fontStyle & ";" & Parent.Title.additionalStyles & "'>" &
+                                      Parent.Title.text &
+                                  "</tspan>",
+                                  If(!IsBlank(Parent.Subtitle.text), 
+                                      "<tspan " & Switch(Parent.Subtitle.align,
+                                                  "left","text-anchor='start' x='0' ",
+                                                  "right","text-anchor='end' x='" & Text(Round(GanttHeader.Width,3), "#0.000", "en-us") & "' ",
+                                                  "center","x='" & Text(Round(GanttHeader.Width/2,3), "#0.000", "en-us") & "' ") &
+                                              "y='" & Text((Parent.Title.paddingTop + Parent.Title.height + Parent.Subtitle.paddingTop), "#0.000", "en-us") & "' " &
+                                              "dy='0em' " &
+                                              "style='" &
+                                          "fill:" & Parent.Subtitle.color & ";" &
+                                          "font-size:" & Text(Parent.Subtitle.fontSize, "#0.000", "en-us") & "px;" &
+                                          "font-family:" & Parent.Subtitle.fontFamily & ";" &
+                                          "font-weight:" & Parent.Subtitle.fontWeight & ";" &
+                                          "font-style:" & Parent.Subtitle.fontStyle & ";" & Parent.Subtitle.additionalStyles & "'>" &
+                                          Parent.Subtitle.text &
+                                      "</tspan>"),
+                              "</text>",
+                          "</g>"
+                      )),
+                      "</svg>"
+                  ),
+              "%", "%25"), "<", "%3C"), ">", "%3E"), "#", "%23"), "{", "%7B"), "}", "%7D")
+            PressedBorderColor: =ColorFade(GanttHeader.BorderColor, -20%)
+            PressedFill: =ColorFade(GanttHeader.Fill, -20%)
+            Width: =Parent.Width

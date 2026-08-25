@@ -1,0 +1,110 @@
+# ************************************************************************************************
+# Warning: YAML source code for Canvas Apps should only be used to review changes made within Power Apps Studio and for minor edits (Preview).
+# Use the maker portal to create and edit your Power Apps.
+# 
+# The schema file for Canvas Apps is available at https://go.microsoft.com/fwlink/?linkid=2304907
+# 
+# For more information, visit https://go.microsoft.com/fwlink/?linkid=2292623
+# ************************************************************************************************
+Screens:
+  Screen4:
+    Properties:
+      Fill: =RGBA(255, 255, 255, 1)
+      Height: =Max(App.Height, App.DesignHeight)
+      LoadingSpinnerColor: =RGBA(56, 96, 178, 1)
+      Width: =Max(App.Width, App.DesignWidth)
+    Children:
+      - GanttChart_1:
+          Control: CanvasComponent
+          ComponentName: GanttChart
+          Properties:
+            Colors: =["#31825d", "#30a667", "#5ec16c", "#f6c790", "#f7c772", "#f7b45b", "#f68f64", "#d46068", "#946eb0", "#769acc", "#60c5ea"]
+            Data: |+
+              ={
+                  legends: ["Label1","Label2","Label3","Label4","Label5"],
+                  clabels: ["Process 1","Process 2","Process 3","Process 4","Process 5"],
+                  intervals: Table(
+                      {start:Date(2018,1,10),end:Date(2018,2,1),colorindex:1,process:1},
+                      {start:Date(2018,4,5),end:Date(2018,4,30),colorindex:1,process:1},
+                      {start:Date(2018,2,10),end:Date(2018,2,20),colorindex:3,process:2},
+                      {start:Date(2018,2,25),end:Date(2018,5,1),colorindex:2,process:3},
+                      {start:Date(2018,4,20),end:Date(2018,5,20),colorindex:5,process:3}
+                  )
+              }
+            Legend: |-
+              ={
+                  enabled: true,
+                  placement: "bottom",
+                  width: 100,
+                  height: 45,
+                  itemGap: 5,
+                  fontSize: 14,
+                  fontFamily: "",
+                  fontWeight: "bold",
+                  fontStyle: "normal",
+                  color: "#666666",
+                  align: "center"
+              }
+            Options: |-
+              =Table(
+                  {key:"gantt.type", value:"month"},
+                  {key:"gantt.step", value:"4"},
+                  {key:"gantt.startDate", value:Date(2018,1,18)},
+                  {key:"gantt.endDate", value:Date(2018,6,25)},
+                  {key:"gantt.lineColor", value:"#5a5252"},
+                  {key:"gantt.fontColor", value:"#5a5252"},
+                  {key:"gantt.barHeight", value:"30"},
+                  {key:"gantt.rowHeight", value:"50"},
+                  {key:"gantt.rowHeaderHeight", value:"60"},
+                  {key:"gantt.columnHeaderWidth", value:"120"},
+                  {key:"gantt.rowHeaderFontSize", value:"12"},
+                  {key:"gantt.rowHeaderFontSize", value:"12"}
+              )
+            Subtitle: |-
+              ={
+                  text: "Subtitle",
+                  height: 12,
+                  align: "center",
+                  paddingTop: 12,
+                  fontSize: 12,
+                  fontFamily: "",
+                  fontWeight: "bold",
+                  fontStyle: "normal",
+                  color: "#808080",
+                  additionalStyles: ""
+              }
+            Title: |-
+              ={
+                  text: "Title",
+                  height: 20,
+                  align: "center",
+                  paddingTop: 10,
+                  fontSize: 20,
+                  fontFamily: "",
+                  fontWeight: "bold",
+                  fontStyle: "normal",
+                  color: "#666666",
+                  additionalStyles: ""
+              }
+            Width: =1150
+            X: =117
+            Y: =63
+      - icon2:
+          Control: Classic/Icon@2.5.0
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Color: =RGBA(0, 18, 107, 1)
+            DisabledFill: =icon2.Fill
+            FocusedBorderColor: =icon2.BorderColor
+            Height: =50
+            HoverBorderColor: =ColorFade(icon2.BorderColor, 20%)
+            HoverColor: =ColorFade(icon2.Color, 20%)
+            HoverFill: =icon2.Fill
+            Icon: =Icon.BackArrow
+            OnSelect: =Back()
+            PressedBorderColor: =ColorFade(icon2.BorderColor, -20%)
+            PressedColor: =ColorFade(icon2.Color, -20%)
+            PressedFill: =icon2.Fill
+            Width: =50
+            X: =40
+            Y: =40
