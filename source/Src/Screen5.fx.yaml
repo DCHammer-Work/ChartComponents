@@ -4,5 +4,3 @@ Screen5 As screen:
     Size: =1 + CountRows(App.SizeBreakpoints) - CountIf(App.SizeBreakpoints, Value >= Screen5.Width)
     Width: =Max(App.Width, App.DesignWidth)
 
-    Chart_9 As Chart:
-
