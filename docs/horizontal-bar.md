@@ -2,7 +2,7 @@
 
 ### Sample
 
-![Sample Bar Chart](images/bar.png)
+![Sample Bar Chart](images/horizontal-bar.png)
 
 The following property values create the sample chart pictured above.
 
@@ -10,7 +10,7 @@ The following property values create the sample chart pictured above.
 
 ```javascript
 {
-    text: "Test Title 1",
+    text: "Title",
     ...
 }
 ```
@@ -19,7 +19,7 @@ The following property values create the sample chart pictured above.
 
 ```javascript
 {
-    text: "",
+    text: "Subtitle",
     ...
 }
 ```
@@ -38,7 +38,7 @@ The following property values create the sample chart pictured above.
 
 ```javascript
 Table(
-    { key: "bar.stacked", value: "true" }
+    { key: "bar.stacked", value: "false" }
 )
 ```
 
@@ -46,17 +46,17 @@ Table(
 
 ```javascript
 {
-    legends: ["Test 1", "Test 2", "Test 3"],
-    labels: ["Label 1",  "Label 2",  "Label 3",  "Label 4",  "Label 5",  "Label 6",  "Label 7",  "Label 8"],
+    legends: ["Jan","Feb","Mar","Apr","May"],
+    labels: ["Sales"],
     table: Table(
-        { key:"1.y", values: [120, 132, 101, 134, 90, 230, 210, 101] },
-        { key:"2.y", values: [220, 182, 191, 234, 290, 330, 310, 182] },
-        { key:"3.y", values: [150, 232, 201, 154, 190, 330, 410, 190] }
+        {key: "1.y", values: [10]},
+        {key: "2.y", values: [20]},
+        {key: "3.y", values: [30]},
+        {key: "4.y", values: [40]},
+        {key: "5.y", values: [50]}
     )
 }
-```
 
-Records `1.y`, `2.y` and `3.y` are data for the first, second and third legend items.
 
 ### All Options
 
