@@ -47,6 +47,7 @@ The chart components evaluate the properties and render the appropriate SVG code
 
 ## Fork Contributors ##
 | Author                                         |
+| ------------------------------------------------- |
 | Darren Carlson (Random Dude) @dchammer-work |
 
 ### Follow Up
