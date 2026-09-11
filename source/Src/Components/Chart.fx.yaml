@@ -2749,15 +2749,21 @@ Chart As CanvasComponent:
                                                                         3
                                                                     )
                                                                 },
-                                                                xSpaces: If(
-                                                                    CountRows(yLabels) = 1 && CountRows(legends) > 1,
-                                                                    CountRows(legends) + 1,
-                                                                    CountRows(yLabels) + 1
+                                                                xSpaces: Max(
+                                                                    1,
+                                                                    If(
+                                                                        CountRows(yLabels) = 1 && CountRows(legends) > 1,
+                                                                        CountRows(legends) + 1,
+                                                                        CountRows(yLabels) + 1
+                                                                    )
                                                                 ),
                                                                 seriesCount: If(
                                                                     stacked,
                                                                     1,
-                                                                    CountRows(legends)
+                                                                    Max(
+                                                                        1,
+                                                                        CountRows(legends)
+                                                                    )
                                                                 )
                                                             }
                                                         ),
@@ -2793,27 +2799,15 @@ Chart As CanvasComponent:
                                                                                 ),
                                                                                 {
                                                                                     y: Round(
-                Round(
-                    (plot.height / xSpaces),
-                    3
-                ) * (index - .5)
-                +
-                (
-                    (
-                        Round(
-                            plot.height / xSpaces /
-                            seriesCount
-                            - style.itemGap,
-                            3
-                        ) * seriesCount
-                    )
-                    +
-                    (
-                        style.itemGap * (seriesCount - 1)
-                    )
-                ) / 2,
-                3
-            ),
+                                                                                        Round(
+                                                                                            (plot.height / xSpaces),
+                                                                                            3
+                                                                                        ) * (index - .5) + ((Round(
+                                                                                            plot.height / xSpaces / seriesCount - style.itemGap,
+                                                                                            3
+                                                                                        ) * seriesCount) + (style.itemGap * (seriesCount - 1))) / 2,
+                                                                                        3
+                                                                                    ),
                                                                                     labelText: If(
                                                                                         CountRows(yLabels) = 1 && CountRows(legends) > 1,
                                                                                         Last(
@@ -2976,7 +2970,10 @@ Chart As CanvasComponent:
                                                                     If(
                                                                         xAxis.xStep = 0,
                                                                         RoundUp(
-                                                                            (plotMax - plotMin) / 5,
+                                                                            (Max(
+                                                                                1,
+                                                                                plotMax - plotMin
+                                                                            )) / 5,
                                                                             0
                                                                         ),
                                                                         xAxis.xStep
@@ -2987,13 +2984,19 @@ Chart As CanvasComponent:
                                                                     Filter(
                                                                         indexes,
                                                                         index <= RoundUp(
-                                                                            (plotMax - plotMin) / step,
+                                                                            (Max(
+                                                                                1,
+                                                                                plotMax - plotMin
+                                                                            )) / step,
                                                                             0
                                                                         )
                                                                     ),
                                                                     {
                                                                         x: Round(
-                                                                            plot.width * (step * index) / (plotMax - plotMin),
+                                                                            plot.width * (step * index) / (Max(
+                                                                                1,
+                                                                                plotMax - plotMin
+                                                                            )),
                                                                             3
                                                                         ),
                                                                         labelText: Text(
@@ -3181,13 +3184,19 @@ Chart As CanvasComponent:
                                                                         Filter(
                                                                             indexes,
                                                                             index <= RoundUp(
-                                                                                (plotMax - plotMin) / step,
+                                                                                (Max(
+                                                                                    1,
+                                                                                    plotMax - plotMin
+                                                                                )) / step,
                                                                                 0
                                                                             )
                                                                         ),
                                                                         {
                                                                             y: Round(
-                                                                                plot.y + (plot.height) * (1 - step * index/(plotMax - plotMin)),
+                                                                                plot.y + (plot.height) * (1 - step * index/(Max(
+                                                                                    1,
+                                                                                    plotMax - plotMin
+                                                                                ))),
                                                                                 3
                                                                             ) + 3,
                                                                             label: Text(
@@ -3248,13 +3257,16 @@ Chart As CanvasComponent:
                                                                                     If(
                                                                                         legendAsCategoryMode,
                                                                                         0,
-                                                                                        index * xSpaceWidth
+                                                                                        xSpaceWidth * (index - .5)
                                                                                     ),
                                                                                     3
                                                                                 ),
                                                                                 x,
                                                                                 Round(
-                                                                                    plot.width * (value - plotMin) / (plotMax - plotMin),
+                                                                                    plot.width * (value - plotMin) / (Max(
+                                                                                        1,
+                                                                                        plotMax - plotMin
+                                                                                    )),
                                                                                     3
                                                                                 ),
                                                                                 baseX,
@@ -3276,7 +3288,10 @@ Chart As CanvasComponent:
                                                                                                     index
                                                                                                 )
                                                                                             ).value
-                                                                                        )) / (plotMax - plotMin),
+                                                                                        )) / (Max(
+                                                                                            1,
+                                                                                            plotMax - plotMin
+                                                                                        )),
                                                                                         3
                                                                                     ),
                                                                                     0

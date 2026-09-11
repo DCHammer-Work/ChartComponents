@@ -1,6 +1,9 @@
 {
   "ComponentAllowCustomization": true,
   "ComponentChangedSinceFileImport": true,
+  "ComponentExtraMetadata": {
+    "ComponentDescription": ""
+  },
   "ComponentManifest": {
     "AllowAccessToGlobals": false,
     "AllowCustomization": true,
@@ -14,30 +17,12 @@
   "CustomProperties": [
     {
       "Category": 0,
-      "DisplayName": "Colors",
-      "Hidden": false,
-      "Name": "Colors",
-      "PropertyDataTypeKey": "Table",
-      "Tooltip": "Colors",
-      "Type": "{\"Version\":\"1.349\",\"Type\":{\"Name\":\"Root\",\"Kind\":\"Table\",\"EnumString\":\"\",\"Type\":[{\"Name\":\"Value\",\"Kind\":\"String\",\"EnumString\":\"\",\"Type\":[]}]}}"
-    },
-    {
-      "Category": 0,
       "DisplayName": "Data",
       "Hidden": false,
       "Name": "Data",
       "PropertyDataTypeKey": "Record",
       "Tooltip": "Data",
       "Type": "{\"Version\":\"1.349\",\"Type\":{\"Name\":\"Root\",\"Kind\":\"Record\",\"EnumString\":\"\",\"Type\":[{\"Name\":\"labels\",\"Kind\":\"Table\",\"EnumString\":\"\",\"Type\":[{\"Name\":\"Value\",\"Kind\":\"String\",\"EnumString\":\"\",\"Type\":[]}]},{\"Name\":\"legends\",\"Kind\":\"Table\",\"EnumString\":\"\",\"Type\":[{\"Name\":\"Value\",\"Kind\":\"String\",\"EnumString\":\"\",\"Type\":[]}]},{\"Name\":\"table\",\"Kind\":\"Table\",\"EnumString\":\"\",\"Type\":[{\"Name\":\"key\",\"Kind\":\"String\",\"EnumString\":\"\",\"Type\":[]},{\"Name\":\"values\",\"Kind\":\"Table\",\"EnumString\":\"\",\"Type\":[{\"Name\":\"Value\",\"Kind\":\"Number\",\"EnumString\":\"\",\"Type\":[]}]}]}]}}"
-    },
-    {
-      "Category": 0,
-      "DisplayName": "Legend",
-      "Hidden": false,
-      "Name": "Legend",
-      "PropertyDataTypeKey": "Record",
-      "Tooltip": "Legend",
-      "Type": "{\"Version\":\"1.349\",\"Type\":{\"Name\":\"Root\",\"Kind\":\"Record\",\"EnumString\":\"\",\"Type\":[{\"Name\":\"align\",\"Kind\":\"String\",\"EnumString\":\"\",\"Type\":[]},{\"Name\":\"color\",\"Kind\":\"String\",\"EnumString\":\"\",\"Type\":[]},{\"Name\":\"enabled\",\"Kind\":\"Boolean\",\"EnumString\":\"\",\"Type\":[]},{\"Name\":\"fontFamily\",\"Kind\":\"String\",\"EnumString\":\"\",\"Type\":[]},{\"Name\":\"fontSize\",\"Kind\":\"Number\",\"EnumString\":\"\",\"Type\":[]},{\"Name\":\"fontStyle\",\"Kind\":\"String\",\"EnumString\":\"\",\"Type\":[]},{\"Name\":\"fontWeight\",\"Kind\":\"String\",\"EnumString\":\"\",\"Type\":[]},{\"Name\":\"height\",\"Kind\":\"Number\",\"EnumString\":\"\",\"Type\":[]},{\"Name\":\"itemGap\",\"Kind\":\"Number\",\"EnumString\":\"\",\"Type\":[]},{\"Name\":\"placement\",\"Kind\":\"String\",\"EnumString\":\"\",\"Type\":[]},{\"Name\":\"source\",\"Kind\":\"String\",\"EnumString\":\"\",\"Type\":[]},{\"Name\":\"width\",\"Kind\":\"Number\",\"EnumString\":\"\",\"Type\":[]}]}}"
     },
     {
       "Category": 0,
@@ -50,12 +35,21 @@
     },
     {
       "Category": 0,
-      "DisplayName": "Subtitle",
+      "DisplayName": "Legend",
       "Hidden": false,
-      "Name": "Subtitle",
+      "Name": "Legend",
       "PropertyDataTypeKey": "Record",
-      "Tooltip": "Subtitle",
-      "Type": "{\"Version\":\"1.349\",\"Type\":{\"Name\":\"Root\",\"Kind\":\"Record\",\"EnumString\":\"\",\"Type\":[{\"Name\":\"additionalStyles\",\"Kind\":\"String\",\"EnumString\":\"\",\"Type\":[]},{\"Name\":\"align\",\"Kind\":\"String\",\"EnumString\":\"\",\"Type\":[]},{\"Name\":\"color\",\"Kind\":\"String\",\"EnumString\":\"\",\"Type\":[]},{\"Name\":\"fontFamily\",\"Kind\":\"String\",\"EnumString\":\"\",\"Type\":[]},{\"Name\":\"fontSize\",\"Kind\":\"Number\",\"EnumString\":\"\",\"Type\":[]},{\"Name\":\"fontStyle\",\"Kind\":\"String\",\"EnumString\":\"\",\"Type\":[]},{\"Name\":\"fontWeight\",\"Kind\":\"String\",\"EnumString\":\"\",\"Type\":[]},{\"Name\":\"height\",\"Kind\":\"Number\",\"EnumString\":\"\",\"Type\":[]},{\"Name\":\"paddingTop\",\"Kind\":\"Number\",\"EnumString\":\"\",\"Type\":[]},{\"Name\":\"text\",\"Kind\":\"String\",\"EnumString\":\"\",\"Type\":[]}]}}"
+      "Tooltip": "Legend",
+      "Type": "{\"Version\":\"1.349\",\"Type\":{\"Name\":\"Root\",\"Kind\":\"Record\",\"EnumString\":\"\",\"Type\":[{\"Name\":\"align\",\"Kind\":\"String\",\"EnumString\":\"\",\"Type\":[]},{\"Name\":\"color\",\"Kind\":\"String\",\"EnumString\":\"\",\"Type\":[]},{\"Name\":\"enabled\",\"Kind\":\"Boolean\",\"EnumString\":\"\",\"Type\":[]},{\"Name\":\"fontFamily\",\"Kind\":\"String\",\"EnumString\":\"\",\"Type\":[]},{\"Name\":\"fontSize\",\"Kind\":\"Number\",\"EnumString\":\"\",\"Type\":[]},{\"Name\":\"fontStyle\",\"Kind\":\"String\",\"EnumString\":\"\",\"Type\":[]},{\"Name\":\"fontWeight\",\"Kind\":\"String\",\"EnumString\":\"\",\"Type\":[]},{\"Name\":\"height\",\"Kind\":\"Number\",\"EnumString\":\"\",\"Type\":[]},{\"Name\":\"itemGap\",\"Kind\":\"Number\",\"EnumString\":\"\",\"Type\":[]},{\"Name\":\"placement\",\"Kind\":\"String\",\"EnumString\":\"\",\"Type\":[]},{\"Name\":\"source\",\"Kind\":\"String\",\"EnumString\":\"\",\"Type\":[]},{\"Name\":\"width\",\"Kind\":\"Number\",\"EnumString\":\"\",\"Type\":[]}]}}"
+    },
+    {
+      "Category": 0,
+      "DisplayName": "Type",
+      "Hidden": false,
+      "Name": "Type",
+      "PropertyDataTypeKey": "String",
+      "Tooltip": "Type of the chart",
+      "Type": "{\"Version\":\"1.349\",\"Type\":{\"Name\":\"Root\",\"Kind\":\"String\",\"EnumString\":\"\",\"Type\":[]}}"
     },
     {
       "Category": 0,
@@ -68,12 +62,21 @@
     },
     {
       "Category": 0,
-      "DisplayName": "Type",
+      "DisplayName": "Subtitle",
       "Hidden": false,
-      "Name": "Type",
-      "PropertyDataTypeKey": "String",
-      "Tooltip": "Type of the chart",
-      "Type": "{\"Version\":\"1.349\",\"Type\":{\"Name\":\"Root\",\"Kind\":\"String\",\"EnumString\":\"\",\"Type\":[]}}"
+      "Name": "Subtitle",
+      "PropertyDataTypeKey": "Record",
+      "Tooltip": "Subtitle",
+      "Type": "{\"Version\":\"1.349\",\"Type\":{\"Name\":\"Root\",\"Kind\":\"Record\",\"EnumString\":\"\",\"Type\":[{\"Name\":\"additionalStyles\",\"Kind\":\"String\",\"EnumString\":\"\",\"Type\":[]},{\"Name\":\"align\",\"Kind\":\"String\",\"EnumString\":\"\",\"Type\":[]},{\"Name\":\"color\",\"Kind\":\"String\",\"EnumString\":\"\",\"Type\":[]},{\"Name\":\"fontFamily\",\"Kind\":\"String\",\"EnumString\":\"\",\"Type\":[]},{\"Name\":\"fontSize\",\"Kind\":\"Number\",\"EnumString\":\"\",\"Type\":[]},{\"Name\":\"fontStyle\",\"Kind\":\"String\",\"EnumString\":\"\",\"Type\":[]},{\"Name\":\"fontWeight\",\"Kind\":\"String\",\"EnumString\":\"\",\"Type\":[]},{\"Name\":\"height\",\"Kind\":\"Number\",\"EnumString\":\"\",\"Type\":[]},{\"Name\":\"paddingTop\",\"Kind\":\"Number\",\"EnumString\":\"\",\"Type\":[]},{\"Name\":\"text\",\"Kind\":\"String\",\"EnumString\":\"\",\"Type\":[]}]}}"
+    },
+    {
+      "Category": 0,
+      "DisplayName": "Colors",
+      "Hidden": false,
+      "Name": "Colors",
+      "PropertyDataTypeKey": "Table",
+      "Tooltip": "Colors",
+      "Type": "{\"Version\":\"1.349\",\"Type\":{\"Name\":\"Root\",\"Kind\":\"Table\",\"EnumString\":\"\",\"Type\":[{\"Name\":\"Value\",\"Kind\":\"String\",\"EnumString\":\"\",\"Type\":[]}]}}"
     }
   ],
   "FirstParty": true,
@@ -84,9 +87,8 @@
   "IsPcfControl": false,
   "IsPremiumPcfControl": false,
   "IsWidgetTemplate": false,
-  "LastModifiedTimestamp": "639241279418069380",
+  "LastModifiedTimestamp": "639247418709703979",
   "Name": "16011023071a42ad8aca547826eae334",
   "OverridableProperties": {},
-  "TemplateOriginalName": "1c3b869157ec45e3b361ea02da4fd275",
   "Version": "1.0"
 }

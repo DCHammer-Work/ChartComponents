@@ -883,7 +883,7 @@
       },
       "OnReset"
     ],
-    "LastModifiedTimestamp": "639241278315190575",
+    "LastModifiedTimestamp": "639247418070738096",
     "Name": "GanttChart",
     "Rules": [
       {
@@ -1042,7 +1042,7 @@
   "IsPcfControl": false,
   "IsPremiumPcfControl": false,
   "IsWidgetTemplate": false,
-  "LastModifiedTimestamp": "639241278315190575",
+  "LastModifiedTimestamp": "639247418070738096",
   "Name": "546913d91e6b487bbe1812ce823ff3e9",
   "OverridableProperties": {},
   "Version": "637369188230463877"
